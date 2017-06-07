@@ -1,0 +1,378 @@
+%
+% Transportation Research Board conference paper template
+% version 2.1.1
+% 
+% David R. Pritchard, http://davidpritchard.org
+%   1.0   - Mar. 2009
+%   1.1   - Sep. 2011, fixes for captions
+%   2.0   - Mar. 2012, Reorganized title page incl. automatic counters
+%   2.1   - Jul. 2015, Automatic total word counter and more formattings
+%   2.1.1 - Jan. 2016, Minor modifications and first uploaded to Github
+%   2.1.1 - May. 2016, created a lite version for people to use directly on TeX without Sweave options
+
+% PAGE LAYOUT
+%------------------------------------------
+
+% Custom paper settings...
+\documentclass[titlepage,oneside,letterpage,12pt]{article}
+
+\oddsidemargin 0.0in
+\topmargin -0.5in
+\headheight 0.3in
+\headsep 0.2in
+\textwidth 6.5in
+\textheight 9.0in
+\setlength{\parindent}{0.5in}
+
+% PAGE HEADER
+%------------------------------------------
+% Adjust the header text below (INSERT AUTHORS HERE)
+\oddsidemargin 0.0in
+\usepackage[tiny,rm]{titlesec}
+\newpagestyle{trbstyle}{
+\sethead{Pritchard, Macfarlane, and Wang}{}{\thepage}% Change to the last names of the authors, use et al. if 4+ authors
+}
+\pagestyle{trbstyle}
+
+% HEADINGS
+%------------------------------------------
+% Line spacing: 12pt before section titles
+\renewcommand*{\refname}{\uppercase{References}}
+\titleformat{\section}{\bfseries}{}{0pt}{\uppercase}
+\titlespacing*{\section}{0pt}{12pt}{*0}
+\titleformat{\subsection}{\bfseries}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{12pt}{*0}
+\titleformat{\subsubsection}{\itshape}{}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{*0}
+
+% LISTS
+%------------------------------------------
+% Adjust lists a little. Not quite perfectly fitting TRB style, but vaguely
+% close at least.
+\usepackage{enumitem}
+\setlist[1]{labelindent=0.5in,leftmargin=*}
+\setlist[2]{labelindent=0in,leftmargin=*}
+\setlist{nosep} % eliminate extra verticle spacings between items
+
+% CAPTIONS
+%------------------------------------------
+% Get the captions right. Authors must still be careful to use "Title Case"
+% for table captions, and "Sentence case." for figure captions.
+\usepackage{ccaption}
+\usepackage{amsmath}
+\makeatletter
+\renewcommand{\fnum@figure}{\textbf{FIGURE~\thefigure} }
+\renewcommand{\fnum@table}{\textbf{TABLE~\thetable} }
+\makeatother
+\captiontitlefont{\bfseries \boldmath}
+\captiondelim{\;}
+%\precaption{\boldmath}
+
+
+% FONTS
+%------------------------------------------
+% Times for text and math
+\usepackage{mathptmx}
+
+% Some pdf conversion tricks? Unsure.
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+% Fonts will be broken by Sweave without this option
+\usepackage[noae]{Sweave}
+
+
+% CITATIONS
+%------------------------------------------
+% TRB uses an Author (num) citation style. I haven't found a way to make
+% LaTeX/Bibtex do this automatically using the standard \cite macro, but
+% this modified \trbcite macro does the trick.
+
+% TODO: sort&compress option?
+\usepackage[sort&compress,numbers]{natbib}
+\renewcommand{\cite}[1]{({\it \citenum{#1}})}
+\newcommand{\trbcite}[1]{\citeauthor{#1} ({\it \citenum{#1}})}
+\setcitestyle{round}
+
+% Reduce spacing between bibliographic items
+\setlength{\bibsep}{0pt plus 0.3ex}
+
+
+% LINE NUMBERING
+%------------------------------------------
+% TRB likes line numbers on drafts to help reviewers refer to parts of the
+% document. Comment out for final versions.
+
+% Use this for draft submissions - line numbering... sort of.
+%\usepackage{parano}
+%\renewcommand\theparano{\textbf{\scriptsize [\arabic{parano}]}}
+% Use this for final submissions - no line numbering
+\newcommand{\parano}{}
+
+% Add line numbers
+\usepackage[pagewise]{lineno}
+  \renewcommand\linenumberfont{\normalfont\small}
+
+
+% COUNTERS
+%------------------------------------------
+% TRB requires the total number of words, figures, and tables to be displayed on
+% the title page. This is possible under the totcount and the xparse packages on CTAN.
+%
+% Note that a total word count is added in V 2.1 to print a single value that is 
+% calculated as: numberofwords + numberoffigures*250 + numberoftable*250
+
+\newread\somefile
+\usepackage{xparse}
+
+% Total world count solution from Tex.SX: http://tex.stackexchange.com/questions/255940/print-a-total-word-count-that-sums-up-the-number-of-words-tables-and-figures
+\newcounter{totalwordcounter}
+\newcounter{wordcounter}
+\makeatletter
+
+\NewDocumentCommand{\wordcount}{s}{%
+  \immediate\write18{texcount -sum -1 \jobname.tex > count.txt}%
+  \immediate\openin\somefile=count.txt%
+  \read\somefile to \@@localdummy%
+  \immediate\closein\somefile%
+  \setcounter{wordcounter}{\@@localdummy}%
+  \IfBooleanF{#1}{%
+  \@@localdummy%   print only if not starred version
+  }%
+}
+\makeatother
+
+\usepackage{totcount}
+	\regtotcounter{table} 	%count tables
+	\regtotcounter{figure} 	%count figures
+
+\newcommand{\wordfigure}{250} % number of words per figure
+\newcommand{\wordtable}{250} % number of words per table
+
+\newcommand{\totalwordcount}{%
+  \wordcount*% The star allows just getting the number, not printing it
+  \setcounter{totalwordcounter}{\value{wordcounter}}%
+  \addtocounter{totalwordcounter}{\numexpr\wordfigure*\totvalue{figure}}%
+  \addtocounter{totalwordcounter}{\numexpr\wordtable*\totvalue{table}} % 
+  \number\value{totalwordcounter}% Output the number
+  \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}% Prevent the call again, otherwise the figure/table counter would be added again. 
+}
+
+
+
+% OTHER PACKAGES
+%------------------------------------------
+% Add any additional \usepackage declarations here.
+
+\usepackage{graphicx}
+
+
+% TITLEPAGE
+%-----------------------------------------
+%\usepackage{Sweave}
+\begin{document}
+%\input{trb_template-concordance}
+%\input{trb_template-concordance}
+%\input{trb_template-concordance}
+	
+\thispagestyle{empty}
+
+%\pagewiselinenumbers % comment out for final manuscript; comment out if no line numbers on title page
+
+\begin{titlepage}
+\begin{flushleft}
+
+% Title
+{\MakeUppercase{\bfseries A \LaTeX\ Template for Papers Submitted to the Transportation
+Research Board}}\\[36pt]
+
+{\bfseries David Pritchard} \\
+davidpritchard.org\\[12pt]
+
+{\bfseries Gregory S. Macfarlane}\\
+Georgia Institute of Technology \\
+790 Atlantic Drive \\
+Atlanta, GA 30332-0335 \\
+gregmacfarlane@gatech.edu\\[12pt]
+
+{\bfseries Chieh (Ross) Wang}\\
+Georgia Institute of Technology\\
+790 Atlantic Drive\\
+Atlanta, GA 30332\\
+chiehwang@gatech.edu\\[60pt]
+
+%% \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable shell escape in pdfLaTeX, see some examples below)
+%http://www.activestate.com/activeperl/downloads
+%http://stackoverflow.com/questions/3252957/how-to-execute-shell-script-from-latex
+%http://tex.stackexchange.com/questions/233511/inkscape-and-shell-escape-with-texstudio
+Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\[12pt] 
+%Command out the above line and manually fill in counts using the line below if you could not get the autocount work.
+%Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\[12pt]
+
+Submission Date: \today
+\end{flushleft}
+\end{titlepage}
+
+\pagewiselinenumbers % comment out for final manuscript
+
+\newpage
+\section{Abstract}
+%% ***   Put your Abstract here.   ***
+%% (At most 250 words.)
+
+The Transportation Research Board has unique and seemingly arbitrary
+requirements for manuscripts submitted for review. These requirements make it
+difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes
+close to fooling the guidelines. This represents an initial effort at creating a
+template to meet the requirements of TRB authors using \LaTeX, Sweave, or other
+literate programming software.
+
+\newpage
+
+\section{Introduction}
+The \trbcite{TRBGuide} has unique and somewhat arbitrary requirements
+for papers submitted for review and publication. While the initial submission is
+required to be in PDF format, submissions for publication in Transportation
+Research Record must be in Microsoft Office format. On top of this, the
+manuscripts must be line-numbered, captions are bolded and employ atypical
+punctuation, and the references must be numbered when cited and then printed in
+order.
+
+It is assumed that the readers of this document have some significant level of
+experience in \LaTeX and \verb1bibtex1. As use of literate programming becomes more
+widespread in engineering and planning, it is possible that this template may
+need to be made more robust.
+
+\subsection{History}
+David Pritchard posted the original versions of this template in 2009 and
+updated it in 2011, soon after TRB began allowing PDF submissions. Gregory
+Macfarlane made significant adaptations to it in March 2012, allowing for Sweave
+integration and automatic word and table counts. Ross Wang automated the
+total word count and made some formatting modifications in July 2015. Version 2.1.1 has been made available on Github in January, 2016.
+
+
+
+\section{Features}
+The template has a number of features that enable quick and painless manuscript
+authoring.
+
+\subsection{Title Page}
+The standard \LaTeX\ \verb1\maketitle1 command is not very versatile, so we have
+replaced it with a \verb1titlepage1 environment. This means that the writers
+will be required to manually enter spacings based on the number of contributors,
+but the current settings (12pt between authors, 36pt before, and 60pt after them)
+seems to work well. 
+
+Near the bottom of the title page, TRB requires a count of the manuscript's
+words, figures, and tables. This template generates these counts automatically.
+The figure and table counts are simply pulled from the \LaTeX\ counters using the
+\verb1totcount1 package. The word count feature is not as straight-forward, as it
+utilizes a call to the system command \verb1texcount1. Thus to compile the
+document writers must enable \verb#\write18# in their \verb1pdflatex1 call.
+
+In the newest version of this template, we added the total count automatically. 
+The total count basically adds not only the word count, but also the equivalent
+count (250 words) for each figure and table.  This is implemented using a cusomized
+command \verb1\totalwordcount1.  Please see the original code for more information.
+
+\subsection{Page Layout}
+The document has 1 inch margins as required, with the author's names in the left
+heading and the page number in the right. The authors heading will need to be
+edited by the writers; automating this from the title page command is not
+currently possible. Paragraphs leading sections and subsections are not
+indented, while all subsequent paragraphs in that section are. Section types are
+defined as outlined by the \trbcite{TRBGuide}
+
+The document is single-spaced in 12 point Times font. Times New Roman is a
+proprietary font and is therefore not available by installation in open-source
+software. While the differences between Times variants are negligible, Times New
+Roman itself can be used in Mac OSX by compiling under \verb1xelatex1.
+
+\subsubsection{Line Numbers}
+Manuscript line numbering is implemented using the \verb1lineno1 package. There
+are options to change the font style and type, but the current settings work
+well. Note that the line numbers refresh each page, and that blank lines do not
+receive a number.  Currently, line numbers and headers are not shown on the title page, but can be easily added by adding \verb1\pagewiselinenumbers1 command right before the beginning of the title page.
+
+\section{Captions}
+Figure \ref{fig:trial} shows a Gumbel distribution as an example of captioning.
+As demonstrated, figure captions ought to be sentence capitalized, bolded, and
+can be somwhat longer than in other journals.
+
+Table captions are somewhat different, requiring initial capitals and are more of a
+title. An example of this is given in Table \ref{tab:versions}, showing the
+history of this template.
+
+\begin{figure}[t]
+  \centering
+\includegraphics{trb_template-gumbel}
+\caption{This is a random figure to test the counting functionality on the
+title page. It shows a Gumbel distribution with mode 0 and scale 1. The
+multinomial logit model assumes that the error terms are distributed identically
+and independently following this pattern.}
+	\label{fig:trial}
+\end{figure}
+
+\begin{table}[t]
+  \caption{A History of this Template}
+	\label{tab:versions}
+\begin{center}
+	\begin{tabular}{l l l l}
+Version & Date & Author & Contributions \\\hline
+1.0   & Sep 2009 & Pritchard & Initial work \\
+1.1   & Mar 2011 & Pritchard & Captions \\
+2.0   & Mar 2012 & Macfarlane& Automation, documentation\\
+2.1   & Jul 2015 & Wang      & More automation and formatting\\
+2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Bibliography}
+The TRB bibliography style is defined in the \verb1trb.bst1 file which should be
+in your document folder. A new command is specified, \verb1\trbcite{}1 which
+will print the authors and the number of the reference in the order in which it
+is supplied. Note that \verb1\trbcite{}1 prints both the author names and the reference number, if you simply need the number of the reference, use command \verb|\cite{}|. The References section will be appended to the end of the document.
+
+It is very easy to add reference to papers programs written by
+\trbcite{Bierlaire2003} and \trbcite{Bierlaire2008} or to papers like those
+written by \trbcite{Garrow2009} and \trbcite{Koppelman2005}. You can even go
+back and refer to Biog\'eme by \trbcite{Bierlaire2008} a second time.  You can also cite a group of similar references without printing author names \cite{TRBGuide,Bierlaire2003}.  This template also groups multiple reference numbers together if there are three or more consecutive numbers \cite{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005}.
+
+\section{To Do's}
+There is still work to be done on this template. Currently, the word count
+feature includes text in the abstract. 
+
+There may be other important features in the template that we have not
+considered. Ideally, we would make a \verb1trb.sty1 style class that could be
+called and we would not have to expose the user to so much \TeX-ese. This could
+be forthcoming, but not for this TRB cycle. 
+
+\section{Conclusion}
+To make this document from source in a Unix-like OS, issue the following
+commands:
+\begin{verbatim}
+R CMD SWEAVE 'document.rnw'
+pdflatex --shell-escape document.tex
+bibtex document
+pdflatex --shell-escape document.tex
+pdflatex --shell-escape document.tex
+\end{verbatim}
+The \verb1--shell-escape1 option is required to access the command line for the
+word count. Normally this feature is disabled because it is a route of entry for
+malicious software. We promise that there is no such debilitating
+code in this document, and we encourage you to examine any scripts for
+suspicious code before permitting \verb1pdflatex1 from accessing your system.
+
+For R-Studio users using Sweave and .rnw files, you may enable shell escape 
+command in the Global Options > Sweave settings.  Moreover, if your computer does 
+not have a Perl interpreter you will need one, such as the ActivePerl, for the 
+wordcount to work properly.
+
+\newpage
+
+\bibliographystyle{trb}
+\bibliography{trb_template}
+
+% End line numbering
+\nolinenumbers
+\end{document}
