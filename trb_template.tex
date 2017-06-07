@@ -188,17 +188,10 @@ Research Board}}\\[36pt]
 {\bfseries David Pritchard} \\
 davidpritchard.org\\[12pt]
 
-{\bfseries Gregory S. Macfarlane}\\
-Georgia Institute of Technology \\
-790 Atlantic Drive \\
-Atlanta, GA 30332-0335 \\
-gregmacfarlane@gatech.edu\\[12pt]
+{\bfseries Gregory S. Macfarlane, Ph.D.}\\[12pt]
 
-{\bfseries Chieh (Ross) Wang}\\
-Georgia Institute of Technology\\
-790 Atlantic Drive\\
-Atlanta, GA 30332\\
-chiehwang@gatech.edu\\[60pt]
+{\bfseries Chieh (Ross) Wang, Ph.D.}\\
+cw@crosswang.org\\[60pt]
 
 %% \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable shell escape in pdfLaTeX, see some examples below)
 %http://www.activestate.com/activeperl/downloads
@@ -223,7 +216,7 @@ The Transportation Research Board has unique and seemingly arbitrary
 requirements for manuscripts submitted for review. These requirements make it
 difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes
 close to fooling the guidelines. This represents an initial effort at creating a
-template to meet the requirements of TRB authors using \LaTeX, Sweave, or other
+template to meet the requirements of TRB authors using \LaTeX, R, Sweave, and/or other
 literate programming software.
 
 \newpage
@@ -247,7 +240,7 @@ David Pritchard posted the original versions of this template in 2009 and
 updated it in 2011, soon after TRB began allowing PDF submissions. Gregory
 Macfarlane made significant adaptations to it in March 2012, allowing for Sweave
 integration and automatic word and table counts. Ross Wang automated the
-total word count and made some formatting modifications in July 2015. Version 2.1.1 has been made available on Github in January, 2016.
+total word count and made some formatting modifications in July 2015. Version 2.1.1 has been made available on GitHub in January, 2016.  Version 2.1.1 Lite was made available on GitHub in June, 2017.
 
 
 
@@ -322,7 +315,8 @@ Version & Date & Author & Contributions \\\hline
 1.1   & Mar 2011 & Pritchard & Captions \\
 2.0   & Mar 2012 & Macfarlane& Automation, documentation\\
 2.1   & Jul 2015 & Wang      & More automation and formatting\\
-2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\\hline
+2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\
+2.1.1 Lite & Jun 2017 & Wang & TeX-only template \\\hline
 \end{tabular}
 \end{center}
 \end{table}
@@ -348,25 +342,18 @@ called and we would not have to expose the user to so much \TeX-ese. This could
 be forthcoming, but not for this TRB cycle. 
 
 \section{Conclusion}
-To make this document from source in a Unix-like OS, issue the following
+To make the document from source in a Unix-like OS using Sweave, issue the following
 commands:
 \begin{verbatim}
-R CMD SWEAVE 'document.rnw'
+R CMD SWEAVE 'trb_template.rnw'
 pdflatex --shell-escape document.tex
 bibtex document
 pdflatex --shell-escape document.tex
 pdflatex --shell-escape document.tex
 \end{verbatim}
-The \verb1--shell-escape1 option is required to access the command line for the
-word count. Normally this feature is disabled because it is a route of entry for
-malicious software. We promise that there is no such debilitating
-code in this document, and we encourage you to examine any scripts for
-suspicious code before permitting \verb1pdflatex1 from accessing your system.
+The \verb1--shell-escape1 option is required to access the command line for the word count. Normally this feature is disabled because it is a route of entry for malicious software. We promise that there is no such debilitating code in this document, and we encourage you to examine any scripts for suspicious code before permitting \verb1pdflatex1 from accessing your system.
 
-For R-Studio users using Sweave and .rnw files, you may enable shell escape 
-command in the Global Options > Sweave settings.  Moreover, if your computer does 
-not have a Perl interpreter you will need one, such as the ActivePerl, for the 
-wordcount to work properly.
+For R-Studio users using Sweave and .rnw files, you may enable shell escape command in the Global Options > Sweave settings.  Moreover, if your computer does not have a Perl interpreter you will need one, such as the ActivePerl, for the wordcount to work properly.
 
 \newpage
 
