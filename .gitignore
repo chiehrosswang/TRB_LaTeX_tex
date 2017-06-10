@@ -2,6 +2,7 @@
 *.*
 
 !*.tex
+!*.cls
 !*.md
 !*.bst
 !*.bib

@@ -13,88 +13,12 @@
 % PAGE LAYOUT
 %------------------------------------------
 
-% Custom paper settings...
-\documentclass[titlepage,oneside,letterpage,12pt]{article}
+% Call the trb class file, at the moment customization possible only inside the
+% cls file
+\documentclass{trb}
 
-\oddsidemargin 0.0in
-\topmargin -0.5in
-\headheight 0.3in
-\headsep 0.2in
-\textwidth 6.5in
-\textheight 9.0in
-\setlength{\parindent}{0.5in}
-
-% PAGE HEADER
-%------------------------------------------
-% Adjust the header text below (INSERT AUTHORS HERE)
-\oddsidemargin 0.0in
-\usepackage[tiny,rm]{titlesec}
-\newpagestyle{trbstyle}{
-\sethead{Pritchard, Macfarlane, and Wang}{}{\thepage}% Change to the last names of the authors, use et al. if 4+ authors
-}
-\pagestyle{trbstyle}
-
-% HEADINGS
-%------------------------------------------
-% Line spacing: 12pt before section titles
-\renewcommand*{\refname}{\uppercase{References}}
-\titleformat{\section}{\bfseries}{}{0pt}{\uppercase}
-\titlespacing*{\section}{0pt}{12pt}{*0}
-\titleformat{\subsection}{\bfseries}{}{0pt}{}
-\titlespacing*{\subsection}{0pt}{12pt}{*0}
-\titleformat{\subsubsection}{\itshape}{}{0pt}{}
-\titlespacing*{\subsubsection}{0pt}{12pt}{*0}
-
-% LISTS
-%------------------------------------------
-% Adjust lists a little. Not quite perfectly fitting TRB style, but vaguely
-% close at least.
-\usepackage{enumitem}
-\setlist[1]{labelindent=0.5in,leftmargin=*}
-\setlist[2]{labelindent=0in,leftmargin=*}
-\setlist{nosep} % eliminate extra verticle spacings between items
-
-% CAPTIONS
-%------------------------------------------
-% Get the captions right. Authors must still be careful to use "Title Case"
-% for table captions, and "Sentence case." for figure captions.
-\usepackage{ccaption}
-\usepackage{amsmath}
-\makeatletter
-\renewcommand{\fnum@figure}{\textbf{FIGURE~\thefigure} }
-\renewcommand{\fnum@table}{\textbf{TABLE~\thetable} }
-\makeatother
-\captiontitlefont{\bfseries \boldmath}
-\captiondelim{\;}
-%\precaption{\boldmath}
-
-
-% FONTS
-%------------------------------------------
-% Times for text and math
-\usepackage{mathptmx}
-
-% Some pdf conversion tricks? Unsure.
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
-% Fonts will be broken by Sweave without this option
-% \usepackage[noae]{Sweave}
-
-
-% CITATIONS
-%------------------------------------------
-% TRB uses an Author (num) citation style. I haven't found a way to make
-% LaTeX/Bibtex do this automatically using the standard \cite macro, but
-% this modified \trbcite macro does the trick.
-
-% TODO: sort&compress option?
-\usepackage[sort&compress,numbers]{natbib}
-\renewcommand{\cite}[1]{({\it \citenum{#1}})}
-\newcommand{\trbcite}[1]{\citeauthor{#1} ({\it \citenum{#1}})}
-\setcitestyle{round}
-
-% Reduce spacing between bibliographic items
-\setlength{\bibsep}{0pt plus 0.3ex}
+% Change to the last names of the authors, use et al. if 4+ authors
+\author{Pritchard, Macfarlane, and Wang}
 
 
 % LINE NUMBERING
@@ -106,58 +30,7 @@
 %\usepackage{parano}
 %\renewcommand\theparano{\textbf{\scriptsize [\arabic{parano}]}}
 % Use this for final submissions - no line numbering
-\newcommand{\parano}{}
-
-% Add line numbers
-\usepackage[pagewise]{lineno}
-  \renewcommand\linenumberfont{\normalfont\small}
-
-
-% COUNTERS
-%------------------------------------------
-% TRB requires the total number of words, figures, and tables to be displayed on
-% the title page. This is possible under the totcount and the xparse packages on CTAN.
-%
-% Note that a total word count is added in V 2.1 to print a single value that is 
-% calculated as: numberofwords + numberoffigures*250 + numberoftable*250
-
-\newread\somefile
-\usepackage{xparse}
-
-% Total world count solution from Tex.SX: http://tex.stackexchange.com/questions/255940/print-a-total-word-count-that-sums-up-the-number-of-words-tables-and-figures
-\newcounter{totalwordcounter}
-\newcounter{wordcounter}
-\makeatletter
-
-\NewDocumentCommand{\wordcount}{s}{%
-  \immediate\write18{texcount -sum -1 \jobname.tex > count.txt}%
-  \immediate\openin\somefile=count.txt%
-  \read\somefile to \@@localdummy%
-  \immediate\closein\somefile%
-  \setcounter{wordcounter}{\@@localdummy}%
-  \IfBooleanF{#1}{%
-  \@@localdummy%   print only if not starred version
-  }%
-}
-\makeatother
-
-\usepackage{totcount}
-	\regtotcounter{table} 	%count tables
-	\regtotcounter{figure} 	%count figures
-
-\newcommand{\wordfigure}{250} % number of words per figure
-\newcommand{\wordtable}{250} % number of words per table
-
-\newcommand{\totalwordcount}{%
-  \wordcount*% The star allows just getting the number, not printing it
-  \setcounter{totalwordcounter}{\value{wordcounter}}%
-  \addtocounter{totalwordcounter}{\numexpr\wordfigure*\totvalue{figure}}%
-  \addtocounter{totalwordcounter}{\numexpr\wordtable*\totvalue{table}} % 
-  \number\value{totalwordcounter}% Output the number
-  \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}% Prevent the call again, otherwise the figure/table counter would be added again. 
-}
-
-
+% \newcommand{\parano}{}
 
 % OTHER PACKAGES
 %------------------------------------------
@@ -168,7 +41,6 @@
 
 % TITLEPAGE
 %-----------------------------------------
-%\usepackage{Sweave}
 \begin{document}
 %\input{trb_template-concordance}
 %\input{trb_template-concordance}
@@ -181,6 +53,7 @@
 \begin{titlepage}
 \begin{flushleft}
 
+% TODO: move to cls file and wrap it in maketitle
 % Title
 {\MakeUppercase{\bfseries A \LaTeX\ Template for Papers Submitted to the Transportation
 Research Board}}\\[36pt]
