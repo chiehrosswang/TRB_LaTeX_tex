@@ -29,6 +29,14 @@
 }
 \ProcessOptions\relax
 
+% Vars
+%------------------------------------------------------------------------------
+\def\@allAuthors{Author}
+\newcommand{\allAuthors}[1]{
+  \def\@allAuthors{#1}
+}
+
+
 % Page layout
 %------------------------------------------------------------------------------ 
 \geometry{textwidth=6.5in, textheight=9.0in}
@@ -46,7 +54,8 @@
 \newpagestyle{main}{
 \sethead{\@author}{}{\thepage}
 }
-% TODO: this call should probably go to \maketitle
+% TODO: this call should probably go to \maketitle or \AtBeginingOfDocument
+% latex hook
 \pagestyle{main}
 
 % HEADINGS
@@ -117,8 +126,11 @@
 % Total world count solution from Tex.SX: http://tex.stackexchange.com/questions/255940/print-a-total-word-count-that-sums-up-the-number-of-words-tables-and-figures
 \newcounter{totalwordcounter}
 \newcounter{wordcounter}
-\makeatletter
 
+
+% TODO: this makeatletter and makeatother are not supposed to be here and below
+% but it somehow works. It needs cleaning.
+\makeatletter
 \NewDocumentCommand{\wordcount}{s}{%
   \immediate\write18{texcount -sum -1 \jobname.tex > count.txt}%
   \immediate\openin\somefile=count.txt%
@@ -146,3 +158,25 @@
   \number\value{totalwordcounter}% Output the number
   \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}% Prevent the call again, otherwise the figure/table counter would be added again. 
 }
+
+
+\makeatletter
+
+\renewcommand{\maketitle}{
+\begin{flushleft}
+{\MakeUppercase{\bfseries \@title}}\\[36pt]
+\@allAuthors
+
+%% \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable shell escape in pdfLaTeX, see some examples below)
+%http://www.activestate.com/activeperl/downloads
+%http://stackoverflow.com/questions/3252957/how-to-execute-shell-script-from-latex
+%http://tex.stackexchange.com/questions/233511/inkscape-and-shell-escape-with-texstudio
+Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\[12pt]
+%Command out the above line and manually fill in counts using the line below if you could not get the autocount work.
+%Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\[12pt]
+
+Submission Date: \today
+\end{flushleft}
+\newpage
+}
+\makeatother
