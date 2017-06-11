@@ -15,7 +15,9 @@
 
 % Call the trb class file, at the moment customization possible only inside the
 % cls file
-\documentclass{trb_unofficial}
+\documentclass[draft]{trb_unofficial}
+% When in draft mode, lines are numbered. Remove draft option to get the
+% version without numbers
 
 % Change to the last names of the authors, use et al. if 4+ authors
 \author{Pritchard, Macfarlane, and Wang}
@@ -28,17 +30,13 @@
 
 
 % TITLEPAGE
-%-----------------------------------------
+%------------------------------------------------------------------------------
 \begin{document}
 %\input{trb_template-concordance}
 %\input{trb_template-concordance}
 %\input{trb_template-concordance}
 	
 \thispagestyle{empty}
-
-% TODO: when not in draft mode it should not appear. Set it in cls file
-% comment out for final manuscript to remove the numbering
-\pagewiselinenumbers%
 
 \begin{titlepage}
 \begin{flushleft}
@@ -60,7 +58,7 @@ cw@crosswang.org\\[60pt]
 %http://www.activestate.com/activeperl/downloads
 %http://stackoverflow.com/questions/3252957/how-to-execute-shell-script-from-latex
 %http://tex.stackexchange.com/questions/233511/inkscape-and-shell-escape-with-texstudio
-Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\[12pt] 
+Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\[12pt]
 %Command out the above line and manually fill in counts using the line below if you could not get the autocount work.
 %Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\[12pt]
 

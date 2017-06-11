@@ -5,8 +5,6 @@
 
 \LoadClass[titlepage, oneside, letterpage, 12pt]{article}
 
-% TODO: add option to specify draft version for review
-%\DeclareOption{draft}{\OptionNotUsed}
 
 \RequirePackage[tiny, rm]{titlesec}
 \RequirePackage{enumitem}
@@ -23,6 +21,13 @@
 \RequirePackage[pagewise]{lineno}
 
 \RequirePackage{geometry}
+
+
+% TODO: add option to specify draft version for review
+\DeclareOption{draft}{%
+  \pagewiselinenumbers%
+}
+\ProcessOptions\relax
 
 % Page layout
 %------------------------------------------------------------------------------ 
