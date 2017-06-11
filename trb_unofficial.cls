@@ -20,12 +20,11 @@
 
 \RequirePackage[pagewise]{lineno}
 
-\oddsidemargin 0.0in
-\topmargin -0.5in
-\headheight 0.3in
-\headsep 0.2in
-\textwidth 6.5in
-\textheight 9.0in
+\RequirePackage{geometry}
+\geometry{textwidth=6.5in, textheight=9.0in}
+\geometry{top=1in}
+\geometry{headheight=0.3in, headsep=0.2in}
+
 \setlength{\parindent}{0.5in}
 
 
