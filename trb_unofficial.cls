@@ -1,3 +1,5 @@
+% Official trb manual for authors:
+% http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{trb}[2017/06/10 TRB latex template]
 
@@ -21,10 +23,16 @@
 \RequirePackage[pagewise]{lineno}
 
 \RequirePackage{geometry}
+
+% Page layout
+%------------------------------------------------------------------------------ 
 \geometry{textwidth=6.5in, textheight=9.0in}
-\geometry{top=1in}
+\geometry{top=1in, left=1in}
 \geometry{headheight=0.3in, headsep=0.2in}
 
+
+% Text formatting
+%------------------------------------------------------------------------------ 
 \setlength{\parindent}{0.5in}
 
 
