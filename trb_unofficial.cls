@@ -33,8 +33,8 @@
 
 \RequirePackage{geometry}
 
-
-% TODO: add option to specify draft version for review
+% TODO: this interferes with draft from article class. Change to some other
+% option
 \DeclareOption{draft}{%
   \pagewiselinenumbers%
 }
@@ -47,9 +47,9 @@
   \def\@allAuthors{#1}
 }
 
-\def\@AuthorsHeading{Name1, Name2 and Name3}
-\newcommand{\AuthorsHeading}[1]{
-  \def\@AuthorsHeading{#1}
+\def\@AuthorHeaders{Name1, Name2 and Name3}
+\newcommand{\AuthorHeaders}[1]{
+  \def\@AuthorHeaders{#1}
 }
 
 
@@ -68,7 +68,7 @@
 % Header
 %------------------------------------------------------------------------------
 \newpagestyle{main}{
-\sethead{\@AuthorsHeading}{}{\thepage}
+\sethead{\@AuthorHeaders}{}{\thepage}
 }
 % TODO: this call should probably go to \maketitle or \AtBeginingOfDocument
 % latex hook
