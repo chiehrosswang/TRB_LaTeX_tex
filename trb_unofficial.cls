@@ -97,10 +97,8 @@
 %------------------------------------------------------------------------------ 
 % Get the captions right. Authors must still be careful to use "Title Case"
 % for table captions, and "Sentence case." for figure captions.
-\makeatletter
 \renewcommand{\fnum@figure}{\textbf{FIGURE~\thefigure} }
 \renewcommand{\fnum@table}{\textbf{TABLE~\thetable} }
-\makeatother
 \captiontitlefont{\bfseries \boldmath}
 \captiondelim{\;}
 %\precaption{\boldmath}
@@ -114,8 +112,8 @@
 
 % TODO: sort&compress option?
 \RequirePackage[sort&compress, numbers]{natbib}
-\renewcommand{\cite}[1]{({\it \citenum{#1}})}
-\newcommand{\trbcite}[1]{\citeauthor{#1} ({\it \citenum{#1}})}
+\renewcommand{\cite}[1]{(\textit{\citenum{#1}})}
+\newcommand{\trbcite}[1]{\citeauthor{#1} (\textit{\citenum{#1}})}
 \setcitestyle{round}
 
 % Reduce spacing between bibliographic items
@@ -127,26 +125,23 @@
 % Add line numbers
 \renewcommand\linenumberfont{\normalfont\small}
 
-
 % COUNTERS
 %------------------------------------------
-% TRB requires the total number of words, figures, and tables to be displayed on
-% the title page. This is possible under the totcount and the xparse packages on CTAN.
+% TRB requires the total number of words, figures, and tables to be displayed
+% on the title page. This is possible under the totcount and the xparse
+% packages on CTAN.
 %
-% Note that a total word count is added in V 2.1 to print a single value that is 
-% calculated as: numberofwords + numberoffigures*250 + numberoftable*250
-
+% Note that a total word count is added in V 2.1 to print a single value that
+% is calculated as: numberofwords + numberoffigures*250 + numberoftable*250
 \newread\somefile
 \RequirePackage{xparse}
 
-% Total world count solution from Tex.SX: http://tex.stackexchange.com/questions/255940/print-a-total-word-count-that-sums-up-the-number-of-words-tables-and-figures
+% Total world count solution from Tex.SX:
+% https://tex.stackexchange.com/q/255940
 \newcounter{totalwordcounter}
 \newcounter{wordcounter}
 
 
-% TODO: this makeatletter and makeatother are not supposed to be here and below
-% but it somehow works. It needs cleaning.
-\makeatletter
 \NewDocumentCommand{\wordcount}{s}{%
   \immediate\write18{texcount -sum -1 \jobname.tex > count.txt}%
   \immediate\openin\somefile=count.txt%
@@ -157,7 +152,6 @@
   \@@localdummy%   print only if not starred version
   }%
 }
-\makeatother
 
 \RequirePackage{totcount}
 	\regtotcounter{table} 	%count tables
@@ -179,16 +173,15 @@
 
 % TODO: find better way than multiple hfill and break to get numbered empty
 % lines
-\makeatletter
-\renewcommand{\maketitle}{
+\renewcommand{\maketitle}{%
   \begin{flushleft}
-    {\MakeUppercase{\bfseries \@title}}\\
-    \hfill\break
-    \hfill\break
-    \hfill\break
+    {\MakeUppercase{\bfseries\@title}}\\
+    \hfill\break%
+    \hfill\break%
+    \hfill\break%
     \@author\\
-    \hfill\break
-    \hfill\break
+    \hfill\break%
+    \hfill\break%
     % \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable
     % shell escape in pdfLaTeX, see some examples below)
     % http://www.activestate.com/activeperl/downloads
@@ -197,17 +190,17 @@
     Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\
     % TODO: add if statament and variable \@totalwords to allow manual entry of
     % the number of words.
+    %
     % Command out the above line and manually fill in counts using the line
     % below if you could not get the autocount work.
     % Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\
-    \hfill\break
-    \hfill\break
-    \hfill\break
-    \hfill\break
-    \hfill\break
-    \hfill\break
+    \hfill\break%
+    \hfill\break%
+    \hfill\break%
+    \hfill\break%
+    \hfill\break%
+    \hfill\break%
     Submission Date: \today
   \end{flushleft}
 \newpage
 }
-\makeatother

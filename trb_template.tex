@@ -8,12 +8,12 @@
 Research Board}
 
 % TODO: add macros for easier formatting of \author.
-\author{
+\author{%
   \textbf{David Pritchard}\\
   davidpritchard.org\\
-  \hfill\break
+  \hfill\break% this is a way to add line numbering on empty line
   \textbf{Gregory S. Macfarlane, Ph.D.}\\
-  \hfill\break
+  \hfill\break%
   \textbf{Chieh (Ross) Wang, Ph.D.}\\
   cw@crosswang.org
 }
@@ -23,18 +23,17 @@ Research Board}
 
 \maketitle
 \section{Abstract}
-%% ***   Put your Abstract here.   ***
-%% (At most 250 words.)
+% Abstract is formated as all other sections. Abstract is at most 250 words.
 The Transportation Research Board has unique and seemingly arbitrary
 requirements for manuscripts submitted for review. These requirements make it
 difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes
 close to fooling the guidelines. This represents an initial effort at creating
 a template to meet the requirements of TRB authors using \LaTeX, R, Sweave,
 and/or other literate programming software.
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\hfill\break%
+\hfill\break%
+\hfill\break%
+\hfill\break%
 \textit{Keywords}: Keyword1, Keyword2
 
 \newpage
@@ -49,7 +48,7 @@ punctuation, and the references must be numbered when cited and then printed in
 order.
 
 It is assumed that the readers of this document have some significant level of
-experience in \LaTeX and \verb1bibtex1. As use of literate programming becomes more
+experience in \LaTeX~and \verb1bibtex1. As use of literate programming becomes more
 widespread in engineering and planning, it is possible that this template may
 need to be made more robust.
 
@@ -186,7 +185,7 @@ for malicious software. We promise that there is no such debilitating code in
 this document, and we encourage you to examine any scripts for suspicious code
 before permitting \verb1pdflatex1 from accessing your system.
 
-For R-Studio users using Sweave and .rnw files, you may enable shell escape
+For R-Studio users using Sweave and~.rnw files, you may enable shell escape
 command in the Global Options > Sweave settings.  Moreover, if your computer
 does not have a Perl interpreter you will need one, such as the ActivePerl, for
 the wordcount to work properly.
