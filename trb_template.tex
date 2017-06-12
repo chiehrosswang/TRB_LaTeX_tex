@@ -1,51 +1,22 @@
-%
-% Transportation Research Board conference paper template
-% version 2.1.1
-% 
-% David R. Pritchard, http://davidpritchard.org
-%   1.0   - Mar. 2009
-%   1.1   - Sep. 2011, fixes for captions
-%   2.0   - Mar. 2012, Reorganized title page incl. automatic counters
-%   2.1   - Jul. 2015, Automatic total word counter and more formattings
-%   2.1.1 - Jan. 2016, Minor modifications and first uploaded to Github
-%   2.1.1 - May. 2016, created a lite version for people to use directly on TeX without Sweave options
-
-% PAGE LAYOUT
-%------------------------------------------
-
-% Call the trb class file, at the moment customization possible only inside the
-% cls file
+% When draft option is activated, lines are numbered.
 \documentclass[draft]{trb_unofficial}
-% When in draft mode, lines are numbered. Remove draft option to get the
-% version without numbers
+\usepackage{graphicx}
 
-% TODO: swap author and allAuthors
 % Put here what will go to header as author
 \AuthorsHeading{Pritchard, Macfarlane, and Wang}
 \title{A \LaTeX\ Template for Papers Submitted to the Transportation
 Research Board}
 
-% allAuthors are what it will appear in the title page
-% TODO: make this to work better i.e. without this bold stuff here...
-\allAuthors{
-  {\bfseries David Pritchard} \\
+% TODO: add macros for easier formatting of \author.
+\author{
+  \textbf{David Pritchard} \\
   davidpritchard.org\\[12pt]
-  {\bfseries Gregory S. Macfarlane, Ph.D.}\\[12pt]
-  {\bfseries Chieh (Ross) Wang, Ph.D.}\\
+  \textbf{Gregory S. Macfarlane, Ph.D.}\\[12pt]
+  \textbf{Chieh (Ross) Wang, Ph.D.}\\
   cw@crosswang.org
 }
 
-% OTHER PACKAGES
-%------------------------------------------
-% Add any additional \usepackage declarations here.
-\usepackage{graphicx}
-
-
-% TITLEPAGE
-%------------------------------------------------------------------------------
 \begin{document}
-%\input{trb_template-concordance}
-	
 \thispagestyle{empty}
 
 \maketitle

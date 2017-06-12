@@ -1,3 +1,14 @@
+% Transportation Research Board conference paper template
+% version 2.1.1
+% 
+% David R. Pritchard, http://davidpritchard.org
+%   1.0   - Mar. 2009
+%   1.1   - Sep. 2011, fixes for captions
+%   2.0   - Mar. 2012, Reorganized title page incl. automatic counters
+%   2.1   - Jul. 2015, Automatic total word counter and more formattings
+%   2.1.1 - Jan. 2016, Minor modifications and first uploaded to Github
+%   2.1.1 - May. 2016, created a lite version for people to use directly on TeX without Sweave options
+
 % Official trb manual for authors:
 % http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf
 \NeedsTeXFormat{LaTeX2e}
@@ -170,7 +181,7 @@
 \renewcommand{\maketitle}{
   \begin{flushleft}
     {\MakeUppercase{\bfseries \@title}}\\[36pt]
-    \@allAuthors\\[60pt]
+    \@author\\[60pt]
     % \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable
     % shell escape in pdfLaTeX, see some examples below)
     % http://www.activestate.com/activeperl/downloads
