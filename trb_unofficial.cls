@@ -177,22 +177,35 @@
   \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
 }
 
+% TODO: find better way than multiple hfill and break to get numbered empty
+% lines
 \makeatletter
 \renewcommand{\maketitle}{
   \begin{flushleft}
-    {\MakeUppercase{\bfseries \@title}}\\[36pt]
-    \@author\\[60pt]
+    {\MakeUppercase{\bfseries \@title}}\\
+    \hfill\break
+    \hfill\break
+    \hfill\break
+    \@author\\
+    \hfill\break
+    \hfill\break
     % \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable
     % shell escape in pdfLaTeX, see some examples below)
     % http://www.activestate.com/activeperl/downloads
     % http://stackoverflow.com/questions/3252957/how-to-execute-shell-script-from-latex
     % http://tex.stackexchange.com/questions/233511/inkscape-and-shell-escape-with-texstudio
-    Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\[12pt]
+    Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\
     % TODO: add if statament and variable \@totalwords to allow manual entry of
     % the number of words.
     % Command out the above line and manually fill in counts using the line
     % below if you could not get the autocount work.
-    % Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\[12pt]
+    % Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\
+    \hfill\break
+    \hfill\break
+    \hfill\break
+    \hfill\break
+    \hfill\break
+    \hfill\break
     Submission Date: \today
   \end{flushleft}
 \newpage
