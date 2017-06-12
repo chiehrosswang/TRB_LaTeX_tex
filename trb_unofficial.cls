@@ -21,20 +21,17 @@
 \RequirePackage{enumitem}
 \RequirePackage{ccaption}
 \RequirePackage{amsmath}
-
-% Times for text and math
-\RequirePackage{mathptmx}
-
+\RequirePackage{mathptmx} % Times for text and math
 % Some pdf conversion tricks? Unsure.
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
-
 \RequirePackage[pagewise]{lineno}
-
 \RequirePackage{geometry}
 
-% TODO: this interferes with draft from article class. Change to some other
-% option
+\RequirePackage[sort&compress, numbers]{natbib}
+\RequirePackage{xparse}
+\RequirePackage{totcount}
+% TODO: draft interferes with draft from article class.
 \DeclareOption{draft}{%
   \pagewiselinenumbers%
 }
@@ -109,9 +106,6 @@
 % TRB uses an Author (num) citation style. I haven't found a way to make
 % LaTeX/Bibtex do this automatically using the standard \cite macro, but
 % this modified \trbcite macro does the trick.
-
-% TODO: sort&compress option?
-\RequirePackage[sort&compress, numbers]{natbib}
 \renewcommand{\cite}[1]{(\textit{\citenum{#1}})}
 \newcommand{\trbcite}[1]{\citeauthor{#1} (\textit{\citenum{#1}})}
 \setcitestyle{round}
@@ -134,7 +128,6 @@
 % Note that a total word count is added in V 2.1 to print a single value that
 % is calculated as: numberofwords + numberoffigures*250 + numberoftable*250
 \newread\somefile
-\RequirePackage{xparse}
 
 % Total world count solution from Tex.SX:
 % https://tex.stackexchange.com/q/255940
@@ -153,7 +146,7 @@
   }%
 }
 
-\RequirePackage{totcount}
+% From totcount package
 	\regtotcounter{table} 	%count tables
 	\regtotcounter{figure} 	%count figures
 
