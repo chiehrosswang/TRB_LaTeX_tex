@@ -36,6 +36,11 @@
   \def\@allAuthors{#1}
 }
 
+\def\@AuthorsHeading{Name1, Name2 and Name3}
+\newcommand{\AuthorsHeading}[1]{
+  \def\@AuthorsHeading{#1}
+}
+
 
 % Page layout
 %------------------------------------------------------------------------------ 
@@ -52,7 +57,7 @@
 % Header
 %------------------------------------------------------------------------------
 \newpagestyle{main}{
-\sethead{\@author}{}{\thepage}
+\sethead{\@AuthorsHeading}{}{\thepage}
 }
 % TODO: this call should probably go to \maketitle or \AtBeginingOfDocument
 % latex hook
@@ -156,27 +161,29 @@
   \addtocounter{totalwordcounter}{\numexpr\wordfigure*\totvalue{figure}}%
   \addtocounter{totalwordcounter}{\numexpr\wordtable*\totvalue{table}} % 
   \number\value{totalwordcounter}% Output the number
-  \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}% Prevent the call again, otherwise the figure/table counter would be added again. 
+  % Prevent the call again, otherwise the figure/table counter would be added
+  % again.
+  \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
 }
 
-
 \makeatletter
-
 \renewcommand{\maketitle}{
-\begin{flushleft}
-{\MakeUppercase{\bfseries \@title}}\\[36pt]
-\@allAuthors
-
-%% \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable shell escape in pdfLaTeX, see some examples below)
-%http://www.activestate.com/activeperl/downloads
-%http://stackoverflow.com/questions/3252957/how-to-execute-shell-script-from-latex
-%http://tex.stackexchange.com/questions/233511/inkscape-and-shell-escape-with-texstudio
-Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\[12pt]
-%Command out the above line and manually fill in counts using the line below if you could not get the autocount work.
-%Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\[12pt]
-
-Submission Date: \today
-\end{flushleft}
+  \begin{flushleft}
+    {\MakeUppercase{\bfseries \@title}}\\[36pt]
+    \@allAuthors\\[60pt]
+    % \totalcount (need to have Perl interpreter [e.g. ActivePerl] and enable
+    % shell escape in pdfLaTeX, see some examples below)
+    % http://www.activestate.com/activeperl/downloads
+    % http://stackoverflow.com/questions/3252957/how-to-execute-shell-script-from-latex
+    % http://tex.stackexchange.com/questions/233511/inkscape-and-shell-escape-with-texstudio
+    Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\[12pt]
+    % TODO: add if statament and variable \@totalwords to allow manual entry of
+    % the number of words.
+    % Command out the above line and manually fill in counts using the line
+    % below if you could not get the autocount work.
+    % Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\[12pt]
+    Submission Date: \today
+  \end{flushleft}
 \newpage
 }
 \makeatother
