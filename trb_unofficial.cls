@@ -32,7 +32,7 @@
 \RequirePackage{xparse}
 \RequirePackage{totcount}
 % TODO: draft interferes with draft from article class.
-\DeclareOption{draft}{%
+\DeclareOption{numbered}{%
   \pagewiselinenumbers%
 }
 \ProcessOptions\relax
@@ -134,6 +134,10 @@
 \newcounter{totalwordcounter}
 \newcounter{wordcounter}
 
+% TODO: texcount sum option can count figures separately. Check official docs
+% and remove custom counters afterwards.
+% TODO: texcount running from latex can be simplified using verbatim package
+% check texcount faq: http://app.uio.no/ifi/texcount/faq.html#latexcall
 % \NewDocumentCommand is from xparse package
 \NewDocumentCommand{\wordcount}{s}{%
   \immediate\write18{texcount -sum -1 \jobname.tex > count.txt}%

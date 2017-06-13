@@ -1,6 +1,7 @@
-% When draft option is activated, lines are numbered.
-\documentclass[draft]{trb_unofficial}
+% When numbered option is activated, lines are numbered.
+\documentclass[numbered]{trb_unofficial}
 \usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
 
 % Put here what will go to header as author
 \AuthorHeaders{Pritchard, Macfarlane, and Wang}
@@ -22,8 +23,9 @@ Research Board}
 \thispagestyle{empty}
 
 \maketitle
+
 \section{Abstract}
-% Abstract is formated as all other sections. Abstract is at most 250 words.
+% Abstract is formated as all other sections.
 The Transportation Research Board has unique and seemingly arbitrary
 requirements for manuscripts submitted for review. These requirements make it
 difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes
@@ -45,7 +47,7 @@ required to be in PDF format, submissions for publication in Transportation
 Research Record must be in Microsoft Office format. On top of this, the
 manuscripts must be line-numbered, captions are bolded and employ atypical
 punctuation, and the references must be numbered when cited and then printed in
-order.
+order. More details about the manuscript details can be found online~\footnote{\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}}.
 
 It is assumed that the readers of this document have some significant level of
 experience in \LaTeX~and \verb1bibtex1. As use of literate programming becomes more
@@ -160,13 +162,12 @@ numbers together if there are three or more consecutive numbers
 \cite{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005}.
 
 \section{To Do's}
-There is still work to be done on this template. Currently, the word count
-feature includes text in the abstract. 
+There is still work to be done on this template.
 
-There may be other important features in the template that we have not
-considered. Ideally, we would make a \verb1trb.sty1 style class that could be
-called and we would not have to expose the user to so much \TeX-ese. This could
-be forthcoming, but not for this TRB cycle. 
+There may be important features in the template that we have not considered.
+Ideally, we would make a \verb1trb.sty1 style class that could be called and we
+would not have to expose the user to so much \TeX-ese. This could be
+forthcoming, but not for this TRB cycle. 
 
 \section{Conclusion}
 To make the document from source in a Unix-like OS using Sweave, issue the
