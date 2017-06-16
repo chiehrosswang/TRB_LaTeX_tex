@@ -39,11 +39,6 @@
 
 % Vars
 %------------------------------------------------------------------------------
-\def\@allAuthors{Author}
-\newcommand{\allAuthors}[1]{
-  \def\@allAuthors{#1}
-}
-
 \def\@AuthorHeaders{Name1, Name2 and Name3}
 \newcommand{\AuthorHeaders}[1]{
   \def\@AuthorHeaders{#1}
