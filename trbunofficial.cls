@@ -16,12 +16,11 @@
 
 \LoadClass[titlepage, oneside, 12pt]{article}
 
-
 \RequirePackage[tiny, rm, pagestyles]{titlesec}
 \RequirePackage{enumitem}
 \RequirePackage{ccaption}
-\RequirePackage{amsmath}
-\RequirePackage{mathptmx} % Times for text and math
+\RequirePackage[fleqn]{amsmath}
+\RequirePackage{mathptmx} % Times text series for text and math
 % Some pdf conversion tricks? Unsure.
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
@@ -92,6 +91,10 @@
 \titleformat{\subsubsection}{\itshape}{}{0pt}{}
 \titlespacing*{\subsubsection}{0pt}{12pt}{*0}
 
+% EQUATIONS
+%------------------------------------------------------------------------------
+\setlength{\mathindent}{0in}
+
 % LISTS
 %------------------------------------------------------------------------------ 
 % Adjust lists a little. Not quite perfectly fitting TRB style, but vaguely
@@ -104,8 +107,8 @@
 %------------------------------------------------------------------------------ 
 % Get the captions right. Authors must still be careful to use "Title Case"
 % for table captions, and "Sentence case." for figure captions.
-\renewcommand{\fnum@figure}{\textbf{FIGURE~\thefigure} }
-\renewcommand{\fnum@table}{\textbf{TABLE~\thetable} }
+\renewcommand{\fnum@figure}{\bfseries FIGURE~\thefigure}
+\renewcommand{\fnum@table}{\bfseries TABLE~\thetable}
 \captiontitlefont{\bfseries \boldmath}
 \captiondelim{\;}
 %\precaption{\boldmath}

@@ -33,14 +33,15 @@ Research Board}
 \maketitle
 
 \section{Abstract}
-% Abstract is formated as all other sections.
-The Transportation Research Board has unique and seemingly arbitrary
+
+The Transportation Research Board (TRB) has unique and seemingly arbitrary
 requirements for manuscripts submitted for review. These requirements make it
 difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes
 close to fooling the guidelines. This represents an initial effort at creating
 a template to meet the requirements of TRB authors using \LaTeX, R, Sweave,
 and/or other literate programming software.
 
+\hfill\break%
 \noindent\textit{Keywords}: Keyword1, Keyword2
 \newpage
 
@@ -161,19 +162,26 @@ document.
 It is very easy to add reference to papers programs written by
 \trbcite{Bierlaire2003} and \trbcite{Bierlaire2008} or to papers like those
 written by \trbcite{Garrow2009} and \trbcite{Koppelman2005}. You can even go
-back and refer to Biog\'eme by \trbcite{Bierlaire2008} a second time.  You can
+back and refer to Biog\'eme by \trbcite{Bierlaire2008} a second time. You can
 also cite a group of similar references without printing author names
-\cite{TRBGuide,Bierlaire2003}.  This template also groups multiple reference
+\cite{TRBGuide,Bierlaire2003}. This template also groups multiple reference
 numbers together if there are three or more consecutive numbers
 \cite{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005}.
 
-\section{To Do's}
-There is still work to be done on this template.
+\subsection{Equations}
+Intelligent driver model equations from wikipedia
+\url{https://en.wikipedia.org/wiki/Intelligent_driver_model} moved to the right
+using \verb1amsmath1 package with \verb1fleqn1 options.
 
-There may be important features in the template that we have not considered.
-Ideally, we would make a \verb1trb.sty1 style class that could be called and we
-would not have to expose the user to so much \TeX-ese. This could be
-forthcoming, but not for this TRB cycle. 
+\begin{flalign}
+  &\dot{x}_\alpha = \frac{\mathrm{d}x_\alpha}{\mathrm{d}t} = v_\alpha \\
+  &\dot{v}_\alpha = \frac{\mathrm{d}v_\alpha}{\mathrm{d}t} = a\,\left( 1 - \left(\frac{v_\alpha}{v_0}\right)^\delta - \left(\frac{s^*(v_\alpha,\Delta v_\alpha)}{s_\alpha}\right)^2 \right)
+\end{flalign}
+
+\begin{equation}
+s^*(v_\alpha,\Delta v_\alpha) = s_0 + v_\alpha\,T + \frac{v_\alpha\,\Delta v_\alpha}{2\,\sqrt{a\,b}}
+\end{equation}
+
 
 \section{Conclusion}
 To make the document from source in a Unix-like OS using Sweave, issue the
