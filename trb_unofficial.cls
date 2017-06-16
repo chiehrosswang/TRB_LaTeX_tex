@@ -149,14 +149,21 @@
 \regtotcounter{table} 	%count tables
 \regtotcounter{figure} 	%count figures
 
-\newcommand{\wordfigure}{250} % number of words per figure
-\newcommand{\wordtable}{250} % number of words per table
+\def\@WordsPerFigure{250}
+\newcommand{\WordsPerFigure}[1]{%{250} % number of words per figure
+  \def\@WordsPerFigure{#1}
+}
+
+\def\@WordsPerTable{250}
+\newcommand{\WordsPerTable}[1]{%{250} % number of words per figure
+  \def\@WordsPerTable{#1}
+}
 
 \newcommand{\totalwordcount}{%
   \wordcount*% The star allows just getting the number, not printing it
   \setcounter{totalwordcounter}{\value{wordcounter}}%
-  \addtocounter{totalwordcounter}{\numexpr\wordfigure*\totvalue{figure}}%
-  \addtocounter{totalwordcounter}{\numexpr\wordtable*\totvalue{table}} % 
+  \addtocounter{totalwordcounter}{\numexpr\@WordsPerFigure*\totvalue{figure}}%
+  \addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
   \number\value{totalwordcounter}% Output the number
   % Prevent the call again, otherwise the figure/table counter would be added
   % again.
@@ -174,7 +181,7 @@
     \@author\\
     \hfill\break%
     \hfill\break%
-    Word Count: \wordcount words + \total{figure} figure(s) + \total{table} table(s) = \totalwordcount~words\\
+    Word Count: \wordcount words + \total{figure} figure(s) x \@WordsPerFigure\ + \total{table} table(s) x \@WordsPerTable\ = \totalwordcount~words\\
     % TODO: add if statament and variable \@totalwords to allow manual entry of
     % the number of words.
     %
