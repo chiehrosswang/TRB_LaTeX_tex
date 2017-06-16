@@ -181,6 +181,7 @@
 % lines. Is it really necessary to have empty lines numbered? Its just the way
 % users of word deal with that.
 \renewcommand{\maketitle}{%
+  \thispagestyle{empty}
   \begin{flushleft}
     {\MakeUppercase{\bfseries\@title}}\\
     \hfill\break%
