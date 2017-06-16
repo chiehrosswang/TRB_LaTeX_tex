@@ -45,6 +45,25 @@
 }
 
 
+% default: 250 number of words per figure
+\def\@WordsPerFigure{250}
+\newcommand{\WordsPerFigure}[1]{%
+  \def\@WordsPerFigure{#1}
+}
+
+% default: 250 number of words per table
+\def\@WordsPerTable{250}
+\newcommand{\WordsPerTable}[1]{%
+  \def\@WordsPerTable{#1}
+}
+
+% TODO: there must be a better way to define this to avoid using 0
+% Variable to control manual word counting
+\def\@TotalWords{0}
+\newcommand{\TotalWords}[1]{%
+  \def\@TotalWords{#1}
+}
+
 % Page layout
 %------------------------------------------------------------------------------ 
 \geometry{textwidth=6.5in, textheight=9.0in}
@@ -111,67 +130,60 @@
 
 % LINE NUMBERING
 %------------------------------------------------------------------------------ 
-% Add line numbers
+% Adjust the fond of the line numbering
 \renewcommand\linenumberfont{\normalfont\small}
 
 % COUNTERS
-%------------------------------------------
+%------------------------------------------------------------------------------ 
 % TRB requires the total number of words, figures, and tables to be displayed
 % on the title page. This is possible under the totcount and the xparse
 % packages on CTAN.
 %
 % Note that a total word count is added in V 2.1 to print a single value that
 % is calculated as: numberofwords + numberoffigures*250 + numberoftable*250
-\newread\somefile
 
 % Total world count solution from Tex.SX:
 % https://tex.stackexchange.com/q/255940
 \newcounter{totalwordcounter}
 \newcounter{wordcounter}
 
-% TODO: texcount sum option can count figures separately. Check official docs
-% and remove custom counters afterwards.
-% TODO: texcount running from latex can be simplified using verbatim package
-% check texcount faq: http://app.uio.no/ifi/texcount/faq.html#latexcall
-% \NewDocumentCommand is from xparse package
-\NewDocumentCommand{\wordcount}{s}{%
-  \immediate\write18{texcount -sum -1 \jobname.tex > count.txt}%
-  \immediate\openin\somefile=count.txt%
-  \read\somefile to \@@localdummy%
-  \immediate\closein\somefile%
-  \setcounter{wordcounter}{\@@localdummy}%
-  \IfBooleanF{#1}{%
-  \@@localdummy%   print only if not starred version
-  }%
-}
 
 % From totcount package
 \regtotcounter{table} 	%count tables
 \regtotcounter{figure} 	%count figures
 
-\def\@WordsPerFigure{250}
-\newcommand{\WordsPerFigure}[1]{%{250} % number of words per figure
-  \def\@WordsPerFigure{#1}
-}
+\if\@TotalWords 0% if defined do not call no need for this 0 used as workaround
+  % TODO: texcount running from latex can be simplified using verbatim package
+  % check texcount faq: http://app.uio.no/ifi/texcount/faq.html#latexcall
+  % \NewDocumentCommand is from xparse package
+  \newread\somefile
+  \NewDocumentCommand{\wordcount}{s}{%
+    \immediate\write18{texcount -sum -1 \jobname.tex > count.txt}%
+    \immediate\openin\somefile=count.txt%
+    \read\somefile to \@@localdummy%
+    \immediate\closein\somefile%
+    \setcounter{wordcounter}{\@@localdummy}%
+    \IfBooleanF{#1}{%
+    \@@localdummy%   print only if not starred version
+    }%
+  }
 
-\def\@WordsPerTable{250}
-\newcommand{\WordsPerTable}[1]{%{250} % number of words per figure
-  \def\@WordsPerTable{#1}
-}
-
-\newcommand{\totalwordcount}{%
-  \wordcount*% The star allows just getting the number, not printing it
-  \setcounter{totalwordcounter}{\value{wordcounter}}%
-  \addtocounter{totalwordcounter}{\numexpr\@WordsPerFigure*\totvalue{figure}}%
-  \addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
-  \number\value{totalwordcounter}% Output the number
-  % Prevent the call again, otherwise the figure/table counter would be added
-  % again.
-  \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
-}
+  \newcommand{\totalwordcount}{%
+    \wordcount*% The star allows just getting the number, not printing it
+    \setcounter{totalwordcounter}{\value{wordcounter}}%
+    \addtocounter{totalwordcounter}{\numexpr\@WordsPerFigure*\totvalue{figure}}%
+    \addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
+    \number\value{totalwordcounter}% Output the number
+    % Prevent the call again, otherwise the figure/table counter would be added
+    % again.
+    \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
+  }
+\else
+\fi
 
 % TODO: find better way than multiple hfill and break to get numbered empty
-% lines
+% lines. Is it really necessary to have empty lines numbered? Its just the way
+% users of word deal with that.
 \renewcommand{\maketitle}{%
   \begin{flushleft}
     {\MakeUppercase{\bfseries\@title}}\\
@@ -181,13 +193,11 @@
     \@author\\
     \hfill\break%
     \hfill\break%
-    Word Count: \wordcount words + \total{figure} figure(s) x \@WordsPerFigure\ + \total{table} table(s) x \@WordsPerTable\ = \totalwordcount~words\\
-    % TODO: add if statament and variable \@totalwords to allow manual entry of
-    % the number of words.
-    %
-    % Command out the above line and manually fill in counts using the line
-    % below if you could not get the autocount work.
-    % Word Count: xxxx words + \total{figure} figure(s) + \total{table} table(s) = xxxx~words\\
+    \if\@TotalWords 0
+      Word Count: \wordcount words + \total{figure} figure(s) x \@WordsPerFigure\ + \total{table} table(s) x \@WordsPerTable\ = \totalwordcount~words\\
+    \else
+      Word Count: \@TotalWords\ words + \total{figure} figure(s) x \@WordsPerFigure\ + \total{table} table(s) x \@WordsPerTable\ = \the\numexpr\@TotalWords + \totvalue{figure}*\@WordsPerFigure+\totvalue{table}*\@WordsPerTable~words\\
+    \fi
     \hfill\break%
     \hfill\break%
     \hfill\break%
