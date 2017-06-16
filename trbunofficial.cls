@@ -17,7 +17,7 @@
 \LoadClass[titlepage, oneside, 12pt]{article}
 
 
-\RequirePackage[tiny, rm]{titlesec}
+\RequirePackage[tiny, rm, pagestyles]{titlesec}
 \RequirePackage{enumitem}
 \RequirePackage{ccaption}
 \RequirePackage{amsmath}
@@ -31,7 +31,6 @@
 \RequirePackage[sort&compress, numbers]{natbib}
 \RequirePackage{xparse}
 \RequirePackage{totcount}
-% TODO: draft interferes with draft from article class.
 \DeclareOption{numbered}{%
   \pagewiselinenumbers%
 }
@@ -43,7 +42,6 @@
 \newcommand{\AuthorHeaders}[1]{
   \def\@AuthorHeaders{#1}
 }
-
 
 % default: 250 number of words per figure
 \def\@WordsPerFigure{250}
@@ -81,8 +79,6 @@
 \newpagestyle{main}{
 \sethead{\@AuthorHeaders}{}{\thepage}
 }
-% TODO: this call should probably go to \maketitle or \AtBeginingOfDocument
-% latex hook
 \pagestyle{main}
 
 % HEADINGS
