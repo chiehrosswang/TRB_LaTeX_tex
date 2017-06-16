@@ -14,7 +14,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{trbunofficial}[2017/06/10 TRB latex template]
 
-\LoadClass[titlepage, oneside, letterpage, 12pt]{article}
+\LoadClass[titlepage, oneside, 12pt]{article}
 
 
 \RequirePackage[tiny, rm]{titlesec}
