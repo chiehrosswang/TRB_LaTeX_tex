@@ -1,7 +1,10 @@
 % When numbered option is activated, lines are numbered.
 \documentclass[numbered]{trbunofficial}
 \usepackage{graphicx}
+
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+% For TRB version hide links
+% \usepackage[hidelinks]{hyperref}
 
 % Put here what will go to headers as author
 \AuthorHeaders{Pritchard, Macfarlane, and Wang}
@@ -53,7 +56,7 @@ Research Record must be in Microsoft Office format. On top of this, the
 manuscripts must be line-numbered, captions are bolded and employ atypical
 punctuation, and the references must be numbered when cited and then printed in
 order. More details about the manuscript details can be found
-online~\footnote{\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}}.
+online at~\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}.
 
 It is assumed that the readers of this document have some significant level of
 experience in \LaTeX~and \verb1bibtex1. As use of literate programming becomes
@@ -145,7 +148,7 @@ Version & Date & Author & Contributions \\\hline
 2.0   & Mar 2012 & Macfarlane& Automation, documentation\\
 2.1   & Jul 2015 & Wang      & More automation and formatting\\
 2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\
-2.1.1 Lite & Jun 2017 & Wang & TeX-only template \\hline
+2.1.1 Lite & Jun 2017 & Wang & TeX-only template \\\hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -170,7 +173,7 @@ numbers together if there are three or more consecutive numbers
 
 \subsection{Equations}
 Intelligent driver model equations from wikipedia
-\url{https://en.wikipedia.org/wiki/Intelligent_driver_model} moved to the right
+\url{https://en.wikipedia.org/wiki/Intelligent_driver_model} moved to the left
 using \verb1amsmath1 package with \verb1fleqn1 options.
 
 \begin{flalign}
