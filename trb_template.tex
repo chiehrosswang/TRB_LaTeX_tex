@@ -2,9 +2,9 @@
 \documentclass[numbered]{trbunofficial}
 \usepackage{graphicx}
 
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+% \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
 % For TRB version hide links
-% \usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks]{hyperref}
 
 % Put here what will go to headers as author
 \AuthorHeaders{Pritchard, Macfarlane, and Wang}
@@ -129,16 +129,16 @@ Table captions are somewhat different, requiring initial capitals and are more
 of a title. An example of this is given in Table~\ref{tab:versions}, showing
 the history of this template.
 
-\begin{figure}[t]
+\begin{figure}[!ht]
   \centering
-  \includegraphics{trb_template-gumbel}
+  \includegraphics[width=0.7\textwidth]{trb_template-gumbel}
   \caption{This is a random figure to test the counting functionality on the
   title page. It shows a Gumbel distribution with mode 0 and scale 1. The
   multinomial logit model assumes that the error terms are distributed
   identically and independently following this pattern.}\label{fig:trial}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[!ht]
   \caption{A History of this Template}\label{tab:versions}
   \begin{center}
     \begin{tabular}{l l l l}
