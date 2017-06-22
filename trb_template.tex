@@ -1,3 +1,7 @@
+%
+% Transportation Research Board conference paper template
+% version 3.1 Lite
+%
 % When numbered option is activated, lines are numbered.
 \documentclass[numbered]{trbunofficial}
 \usepackage{graphicx}
@@ -70,8 +74,7 @@ updated it in 2011, soon after TRB began allowing PDF submissions. Gregory
 Macfarlane made significant adaptations to it in March 2012, allowing for
 Sweave integration and automatic word and table counts. Ross Wang automated the
 total word count and made some formatting modifications in July 2015. Version
-2.1.1 has been made available on GitHub in January, 2016.  Version 2.1.1 Lite
-was made available on GitHub in June, 2017.
+2.1.1 has been made available on GitHub in January, 2016.  Version 3.1 has been made available on Github (\url{https://github.com/chiehrosswang/TRB_LaTeX_rnw}) in June, 2017.  Versions 2.1.1 Lite and 3.1 Lite were made available on GitHub (\url{https://github.com/chiehrosswang/TRB_LaTeX_tex}) in June, 2017 for users who do not need R and Sweave functions provided in the original verions.  
 
 
 \section{Features}
@@ -95,7 +98,7 @@ the document writers must enable \verb#\write18# in their \verb1pdflatex1 call.
 In the newest version of this template, we added the total count automatically.
 The total count basically adds not only the word count, but also the equivalent
 count (250 words) for each figure and table.  This is implemented using
-a cusomized command \verb1\totalwordcount1.  Please see the original code for
+a customized command \verb1\totalwordcount1.  Please see the original code for
 more information.
 
 \subsection{Page Layout}
@@ -125,32 +128,34 @@ Figure~\ref{fig:trial} shows a Gumbel distribution as an example of captioning.
 As demonstrated, figure captions ought to be sentence capitalized, balded, and
 can be somewhat longer than in other journals.
 
-Table captions are somewhat different, requiring initial capitals and are more
-of a title. An example of this is given in Table~\ref{tab:versions}, showing
-the history of this template.
-
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.7\textwidth]{trb_template-gumbel}
+  \includegraphics[width=0.6\textwidth]{trb_template-gumbel}
   \caption{This is a random figure to test the counting functionality on the
   title page. It shows a Gumbel distribution with mode 0 and scale 1. The
   multinomial logit model assumes that the error terms are distributed
   identically and independently following this pattern.}\label{fig:trial}
 \end{figure}
 
+Table captions are somewhat different, requiring initial capitals and are more
+of a title. An example of this is given in Table~\ref{tab:versions}, showing
+the history of this template.
+
 \begin{table}[!ht]
-  \caption{A History of this Template}\label{tab:versions}
-  \begin{center}
-    \begin{tabular}{l l l l}
-Version & Date & Author & Contributions \\\hline
-1.0   & Sep 2009 & Pritchard & Initial work \\
-1.1   & Mar 2011 & Pritchard & Captions \\
-2.0   & Mar 2012 & Macfarlane& Automation, documentation\\
-2.1   & Jul 2015 & Wang      & More automation and formatting\\
-2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\
-2.1.1 Lite & Jun 2017 & Wang & TeX-only template \\\hline
-    \end{tabular}
-  \end{center}
+	\caption{A History of this Template}\label{tab:versions}
+	\begin{center}
+		\begin{tabular}{l l l l}
+			Version & Date & Author & Contributions \\\hline
+			1.0   & Sep 2009 & Pritchard & Initial work \\
+			1.1   & Mar 2011 & Pritchard & Captions \\
+			2.0   & Mar 2012 & Macfarlane& Automation, documentation\\
+			2.1   & Jul 2015 & Wang      & More automation and formatting\\
+			2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\
+			2.1.1 Lite & Jun 2017 & Wang & \TeX-only template \\
+			3.1   & Jun 2017 & Wang      & Addition of \verb1trbunofficial.cls1\\
+			3.1 Lite & Jun 2017 & Wang   & Addition of \verb1trbunofficial.cls1\\\hline
+		\end{tabular}
+	\end{center}
 \end{table}
 
 \subsection{Bibliography}
@@ -185,6 +190,8 @@ using \verb1amsmath1 package with \verb1fleqn1 options.
 s^*(v_\alpha,\Delta v_\alpha) = s_0 + v_\alpha\,T + \frac{v_\alpha\,\Delta v_\alpha}{2\,\sqrt{a\,b}}
 \end{equation}
 
+\section{To Do's}
+Two document types, extending from the \verb1[numbered]1 option, can be defined to differentiate the initial submission (i.e., with line numbers and in-line figures and tables) and the final manuscript (i.e., without line numbers and all figures and tables are attached to the end).
 
 \section{Conclusion}
 To make the document from source in a Unix-like OS using Sweave, issue the
@@ -207,6 +214,9 @@ For R-Studio users using Sweave and~.rnw files, you may enable shell escape
 command in the Global Options > Sweave settings.  Moreover, if your computer
 does not have a Perl interpreter you will need one, such as the ActivePerl, for
 the wordcount to work properly.
+
+\section{Acknowledgements}
+The authors would like to thank Aleksandar Trifunovic (\url{https://github.com/akstrfn}) for creating the \verb1trbunofficial1 class document, which has been a very helpful improvement.
 
 \newpage
 
