@@ -181,14 +181,18 @@ Intelligent driver model equations from wikipedia
 \url{https://en.wikipedia.org/wiki/Intelligent_driver_model} moved to the left
 using \verb1amsmath1 package with \verb1fleqn1 options.
 
-\begin{flalign}
-  &\dot{x}_\alpha = \frac{\mathrm{d}x_\alpha}{\mathrm{d}t} = v_\alpha \\
-  &\dot{v}_\alpha = \frac{\mathrm{d}v_\alpha}{\mathrm{d}t} = a\,\left( 1 - \left(\frac{v_\alpha}{v_0}\right)^\delta - \left(\frac{s^*(v_\alpha,\Delta v_\alpha)}{s_\alpha}\right)^2 \right)
-\end{flalign}
+\begin{linenomath}
+  \begin{flalign}
+    &\dot{x}_\alpha = \frac{\mathrm{d}x_\alpha}{\mathrm{d}t} = v_\alpha \\
+    &\dot{v}_\alpha = \frac{\mathrm{d}v_\alpha}{\mathrm{d}t} = a\,\left( 1 - \left(\frac{v_\alpha}{v_0}\right)^\delta - \left(\frac{s^*(v_\alpha,\Delta v_\alpha)}{s_\alpha}\right)^2 \right)
+  \end{flalign}
+\end{linenomath}
 
-\begin{equation}
-s^*(v_\alpha,\Delta v_\alpha) = s_0 + v_\alpha\,T + \frac{v_\alpha\,\Delta v_\alpha}{2\,\sqrt{a\,b}}
-\end{equation}
+\begin{linenomath}
+  \begin{equation}
+  s^*(v_\alpha,\Delta v_\alpha) = s_0 + v_\alpha\,T + \frac{v_\alpha\,\Delta v_\alpha}{2\,\sqrt{a\,b}}
+  \end{equation}
+\end{linenomath}
 
 \section{To Do's}
 Two document types, extending from the \verb1[numbered]1 option, can be defined to differentiate the initial submission (i.e., with line numbers and in-line figures and tables) and the final manuscript (i.e., without line numbers and all figures and tables are attached to the end).
