@@ -24,14 +24,14 @@
 % Some pdf conversion tricks? Unsure.
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
-\RequirePackage[pagewise]{lineno}
+\RequirePackage[pagewise, mathlines]{lineno}
 \RequirePackage{geometry}
 
 \RequirePackage[sort&compress, numbers]{natbib}
 \RequirePackage{xparse}
 \RequirePackage{totcount}
 \DeclareOption{numbered}{%
-  \pagewiselinenumbers%
+  \linenumbers%
 }
 \ProcessOptions\relax
 
