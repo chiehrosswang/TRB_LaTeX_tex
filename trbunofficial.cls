@@ -67,7 +67,6 @@
 \geometry{top=1in, left=1in}
 \geometry{headheight=0.3in, headsep=0.2in}
 
-
 % Text formatting
 %------------------------------------------------------------------------------ 
 \setlength{\parindent}{0.5in}
@@ -94,6 +93,13 @@
 % EQUATIONS
 %------------------------------------------------------------------------------
 \setlength{\mathindent}{0in}
+% Set spacing before and after equation to be 0
+\g@addto@macro\normalsize{%
+  \setlength\abovedisplayskip{0pt}
+  \setlength\belowdisplayskip{0pt}
+  \setlength\abovedisplayshortskip{0pt}
+  \setlength\belowdisplayshortskip{0pt}
+}
 
 % LISTS
 %------------------------------------------------------------------------------ 
