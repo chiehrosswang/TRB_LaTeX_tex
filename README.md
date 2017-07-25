@@ -11,9 +11,14 @@ for TRB papers.
 More instruction and details about the project can be found inside the
 ``trb_template.tex``. The document uses external shell commands hence it needs
 to be compiled with ``--shell-escape`` option. This is necessary for word count
-feature which uses ``texcount`` program. For example:
+feature which uses ``texcount`` program. For example for continuous compilation
+use:
 
     latexmk trb_template.tex -pdf -pvc -shell-escape
+
+For one shot compilation use:
+
+    latexmk trb_template.tex --shell-escape -pdf -f -interaction=nonstopmode
 
 Perl is necessary for ``texcount`` to work and needs a Perl interpreter e.g. [ActivePerl](http://www.activestate.com/activeperl/downloads).
 
