@@ -10,7 +10,7 @@ for TRB papers.
 
 More instruction and details about the project can be found inside the
 ``trb_template.tex``. The document uses external shell commands hence it needs
-to be compiled with ``--shell-escape`` option. This is necessary for word count
+to be compiled with ``-shell-escape`` option. This is necessary for word count
 feature which uses ``texcount`` program. For example:
 
     latexmk trb_template.tex -pdf -pvc -shell-escape
