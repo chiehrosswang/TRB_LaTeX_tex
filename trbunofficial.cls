@@ -163,7 +163,9 @@
   % \NewDocumentCommand is from xparse package
   \newread\somefile
   \NewDocumentCommand{\wordcount}{s}{%
-    \immediate\write18{texcount -sum -1 -incbib \jobname.tex > count.txt}%
+    \IfFileExists{./\jobname.bbl}%
+      {\immediate\write18{texcount -sum -1 -incbib \jobname.tex > count.txt}}%
+      {\immediate\write18{texcount -sum -1 \jobname.tex > count.txt}}%
     \immediate\openin\somefile=count.txt%
     \read\somefile to \@@localdummy%
     \immediate\closein\somefile%
