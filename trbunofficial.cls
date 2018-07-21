@@ -42,8 +42,8 @@
   \def\@AuthorHeaders{#1}
 }
 
-% default: 250 number of words per figure
-\def\@WordsPerFigure{250}
+% default: 0 number of words per figure (updated 7/20/2018 as TRB now only counts tables towards total word count)
+\def\@WordsPerFigure{0}
 \newcommand{\WordsPerFigure}[1]{%
   \def\@WordsPerFigure{#1}
 }
@@ -178,7 +178,8 @@
   \newcommand{\totalwordcount}{%
     \wordcount*% The star allows just getting the number, not printing it
     \setcounter{totalwordcounter}{\value{wordcounter}}%
-    \addtocounter{totalwordcounter}{\numexpr\@WordsPerFigure*\totvalue{figure}}%
+    %\addtocounter{totalwordcounter}{\numexpr\@WordsPerFigure*\totvalue{figure}}
+    % Commented out the above line since TRB no longer counts figures towards total word count
     \addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
     \number\value{totalwordcounter}% Output the number
     % Prevent the call again, otherwise the figure/table counter would be added
@@ -202,9 +203,9 @@
     \hfill\break%
     \hfill\break%
     \if\@TotalWords 0
-      Word Count: \wordcount words + \total{figure} figure(s) x \@WordsPerFigure\ + \total{table} table(s) x \@WordsPerTable\ = \totalwordcount~words\\
+      Word Count: \wordcount words + \total{table} table(s) x \@WordsPerTable\ = \totalwordcount~words\\
     \else
-      Word Count: \@TotalWords\ words + \total{figure} figure(s) x \@WordsPerFigure\ + \total{table} table(s) x \@WordsPerTable\ = \the\numexpr\@TotalWords + \totvalue{figure}*\@WordsPerFigure+\totvalue{table}*\@WordsPerTable~words\\
+      Word Count: \@TotalWords\ words + \total{table} table(s) x \@WordsPerTable\ = \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
     \fi
     \hfill\break%
     \hfill\break%
