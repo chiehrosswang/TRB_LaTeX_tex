@@ -138,6 +138,12 @@
 % Adjust the fond of the line numbering
 \renewcommand\linenumberfont{\normalfont\small}
 
+
+% REFERENCES
+% Remove square brackets from the numbering and add indentation to bibliography 
+% in the REFERENCES section
+\renewcommand\@biblabel[1]{#1.\hspace{0.25in}} 
+
 % COUNTERS
 %------------------------------------------------------------------------------ 
 % TRB requires the total number of words, figures, and tables to be displayed
