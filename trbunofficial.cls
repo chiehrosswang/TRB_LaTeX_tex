@@ -209,9 +209,9 @@
     \hfill\break%
     \hfill\break%
     \if\@TotalWords 0
-      Word Count: \wordcount words + \total{table} table(s) x \@WordsPerTable\ = \totalwordcount~words\\
+      Word Count: \wordcount words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
     \else
-      Word Count: \@TotalWords\ words + \total{table} table(s) x \@WordsPerTable\ = \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
+      Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
     \fi
     \hfill\break%
     \hfill\break%
