@@ -198,14 +198,10 @@ using \verb1amsmath1 package with \verb1fleqn1 options.
 Two document types, extending from the \verb1[numbered]1 option, can be defined to differentiate the initial submission (i.e., with line numbers and in-line figures and tables) and the final manuscript (i.e., without line numbers and all figures and tables are attached to the end).
 
 \section{Conclusion}
-To make the document from source in a Unix-like OS using Sweave, issue the
+To make the document from source in a Unix-like OS, issue the
 following commands:
 \begin{verbatim}
-R CMD SWEAVE 'trb_template.rnw'
-pdflatex --shell-escape document.tex
-bibtex document
-pdflatex --shell-escape document.tex
-pdflatex --shell-escape document.tex
+    latexmk trb_template.tex -pdf -pvc -shell-escape
 \end{verbatim}
 
 The \verb1--shell-escape1 option is required to access the command line for the
@@ -214,10 +210,7 @@ for malicious software. We promise that there is no such debilitating code in
 this document, and we encourage you to examine any scripts for suspicious code
 before permitting \verb1pdflatex1 from accessing your system.
 
-For R-Studio users using Sweave and~.rnw files, you may enable shell escape
-command in the Global Options > Sweave settings.  Moreover, if your computer
-does not have a Perl interpreter you will need one, such as the ActivePerl, for
-the wordcount to work properly.
+Perl is necessary for ``texcount`` to work and needs a Perl interpreter e.g. [ActivePerl](http://www.activestate.com/activeperl/downloads).
 
 \section{Acknowledgements}
 The authors would like to thank Aleksandar Trifunovic (\url{https://github.com/akstrfn}) for creating the \verb1trbunofficial1 class document, which has been a very helpful improvement.
