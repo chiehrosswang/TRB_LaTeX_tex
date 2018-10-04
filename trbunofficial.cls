@@ -17,7 +17,7 @@
 \LoadClass[titlepage, oneside, 12pt]{article}
 
 \RequirePackage[tiny, rm, pagestyles]{titlesec}
-\RequirePackage{enumitem}
+\RequirePackage[inline]{enumitem}
 \RequirePackage{ccaption}
 \RequirePackage[fleqn]{amsmath}
 \RequirePackage{mathptmx} % Times text series for text and math
@@ -170,8 +170,8 @@
   \newread\somefile
   \NewDocumentCommand{\wordcount}{s}{%
     \IfFileExists{./\jobname.bbl}%
-      {\immediate\write18{texcount -sum -1 -incbib \jobname.tex > count.txt}}%
-      {\immediate\write18{texcount -sum -1 \jobname.tex > count.txt}}%
+      {\immediate\write18{texcount -inc -sum -1 -incbib \jobname.tex > count.txt}}%
+      {\immediate\write18{texcount -inc -sum -1 \jobname.tex > count.txt}}%
     \immediate\openin\somefile=count.txt%
     \read\somefile to \@@localdummy%
     \immediate\closein\somefile%

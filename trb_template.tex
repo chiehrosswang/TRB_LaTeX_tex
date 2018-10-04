@@ -39,89 +39,13 @@ Research Board}
 \begin{document}
 \maketitle
 
-\section{Abstract}
-
-The Transportation Research Board (TRB) has unique and seemingly arbitrary
-requirements for manuscripts submitted for review. These requirements make it
-difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes
-close to fooling the guidelines. This represents an initial effort at creating
-a template to meet the requirements of TRB authors using \LaTeX, R, Sweave,
-and/or other literate programming software.
+\input{sections/00-abstract.tex}
 
 \hfill\break%
 \noindent\textit{Keywords}: Keyword1, Keyword2
 \newpage
 
-\section{Introduction}
-The \trbcite{TRBGuide} has unique and somewhat arbitrary requirements for
-papers submitted for review and publication. While the initial submission is
-required to be in PDF format, submissions for publication in Transportation
-Research Record must be in Microsoft Office format. On top of this, the
-manuscripts must be line-numbered, captions are bolded and employ atypical
-punctuation, and the references must be numbered when cited and then printed in
-order. More details about the manuscript details can be found
-online at~\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}.
-
-It is assumed that the readers of this document have some significant level of
-experience in \LaTeX~and \verb1bibtex1. As use of literate programming becomes
-more widespread in engineering and planning, it is possible that this template
-may need to be made more robust.
-
-
-\subsection{History}
-David Pritchard posted the original versions of this template in 2009 and
-updated it in 2011, soon after TRB began allowing PDF submissions. Gregory
-Macfarlane made significant adaptations to it in March 2012, allowing for
-Sweave integration and automatic word and table counts. Ross Wang automated the
-total word count and made some formatting modifications in July 2015. Version
-2.1.1 has been made available on GitHub in January, 2016.  Version 3.1 has been made available on Github (\url{https://github.com/chiehrosswang/TRB_LaTeX_rnw}) in June, 2017.  Versions 2.1.1 Lite and 3.1 Lite were made available on GitHub (\url{https://github.com/chiehrosswang/TRB_LaTeX_tex}) in June, 2017 for users who do not need R and Sweave functions provided in the original verions.  
-
-
-\section{Features}
-The template has a number of features that enable quick and painless manuscript
-authoring.
-
-\subsection{Title Page}
-The standard \LaTeX\ \verb1\maketitle1 command is not very versatile, so we
-have replaced it with a \verb1titlepage1 environment. This means that the
-writers will be required to manually enter spacings based on the number of
-contributors, but the current settings (12pt between authors, 36pt before, and
-60pt after them) seems to work well. 
-
-Near the bottom of the title page, TRB requires a count of the manuscript's
-words, figures, and tables. This template generates these counts automatically.
-The figure and table counts are simply pulled from the \LaTeX\ counters using
-the \verb1totcount1 package. The word count feature is not as straight-forward,
-as it utilizes a call to the system command \verb1texcount1. Thus to compile
-the document writers must enable \verb#\write18# in their \verb1pdflatex1 call.
-
-In the newest version of this template, we added the total count automatically.
-The total count basically adds not only the word count, but also the equivalent
-count (250 words) for each figure and table.  This is implemented using
-a customized command \verb1\totalwordcount1.  Please see the original code for
-more information.
-
-\subsection{Page Layout}
-The document has 1 inch margins as required, with the author's names in the
-left heading and the page number in the right. The authors heading will need to
-be edited by the writers; automating this from the title page command is not
-currently possible. Paragraphs leading sections and subsections are not
-indented, while all subsequent paragraphs in that section are. Section types
-are defined as outlined by the \trbcite{TRBGuide}
-
-The document is single-spaced in 12 point Times font. Times New Roman is
-a proprietary font and is therefore not available by installation in
-open-source software. While the differences between Times variants are
-negligible, Times New Roman itself can be used in Mac OSX by compiling under
-\verb1xelatex1.
-
-\subsubsection{Line Numbers}
-Manuscript line numbering is implemented using the \verb1lineno1 package. There
-are options to change the font style and type, but the current settings work
-well. Note that the line numbers refresh each page, and that blank lines do not
-receive a number. Currently, line numbers and headers are not shown on the
-title page, but can be easily added by adding \verb1\pagewiselinenumbers1
-command right before the beginning of the title page.
+\input{sections/01-introduction.tex}
 
 \section{Captions}
 Figure~\ref{fig:trial} shows a Gumbel distribution as an example of captioning.
