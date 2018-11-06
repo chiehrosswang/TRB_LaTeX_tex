@@ -17,6 +17,13 @@ feature which uses ``texcount`` program. For example:
 
 Perl is necessary for ``texcount`` to work and needs a Perl interpreter e.g. [ActivePerl](http://www.activestate.com/activeperl/downloads).
 
+# Usage
+
+1. Copy the files `trb.bst` and `trbunofficial.cls` into the directory for your document
+1. Change the preamble of your document to correspond to the template (`trb_template.tex`)
+1. Run `latexmk` to make your document as shown above. Note that `latexmk` watches for changes and recompiles the document automatically.
+1. Note also that if you use source control on your document (strongly recommended), you need to check in the template files into the repository as well.
+
 # Troubleshooting
 Using ``-shell-escape`` in TexStudio ([original source](http://tex.stackexchange.com/questions/233511/inkscape-and-shell-escape-with-texstudio)):
 
