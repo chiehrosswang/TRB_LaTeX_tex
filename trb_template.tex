@@ -41,105 +41,50 @@ Research Board}
 
 \section{Abstract}
 
-The Transportation Research Board (TRB) has unique and seemingly arbitrary
-requirements for manuscripts submitted for review. These requirements make it
-difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes
-close to fooling the guidelines. This represents an initial effort at creating
-a template to meet the requirements of TRB authors using \LaTeX, R, Sweave,
-and/or other literate programming software.
+The Transportation Research Board (TRB) has unique and seemingly arbitrary requirements for manuscripts submitted for review. These requirements make it difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes close to fooling the guidelines. This represents an initial effort at creating a template to meet the requirements of TRB authors using \LaTeX, R, Sweave, and/or other literate programming software.
 
 \hfill\break%
 \noindent\textit{Keywords}: Keyword1, Keyword2
 \newpage
 
 \section{Introduction}
-The \trbcite{TRBGuide} has unique and somewhat arbitrary requirements for
-papers submitted for review and publication. While the initial submission is
-required to be in PDF format, submissions for publication in Transportation
-Research Record must be in Microsoft Office format. On top of this, the
-manuscripts must be line-numbered, captions are bolded and employ atypical
-punctuation, and the references must be numbered when cited and then printed in
-order. More details about the manuscript details can be found
-online at~\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}.
+The \trbcite{TRBGuide} has unique and somewhat arbitrary requirements for papers submitted for review and publication. While the initial submission is required to be in PDF format, submissions for publication in Transportation Research Record must be in Microsoft Office format. On top of this, the manuscripts must be line-numbered, captions are bolded and employ atypical punctuation, and the references must be numbered when cited and then printed in order. More details about the manuscript details can be found online at~\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}.
 
-It is assumed that the readers of this document have some significant level of
-experience in \LaTeX~and \verb1bibtex1. As use of literate programming becomes
-more widespread in engineering and planning, it is possible that this template
-may need to be made more robust.
+It is assumed that the readers of this document have some significant level of experience in \LaTeX~and \verb1bibtex1. As use of literate programming becomes more widespread in engineering and planning, it is possible that this template may need to be made more robust.
 
 
 \subsection{History}
-David Pritchard posted the original versions of this template in 2009 and
-updated it in 2011, soon after TRB began allowing PDF submissions. Gregory
-Macfarlane made significant adaptations to it in March 2012, allowing for
-Sweave integration and automatic word and table counts. Ross Wang automated the
-total word count and made some formatting modifications in July 2015. Version
-2.1.1 has been made available on GitHub in January, 2016.  Version 3.1 has been made available on Github (\url{https://github.com/chiehrosswang/TRB_LaTeX_rnw}) in June, 2017.  Versions 2.1.1 Lite and 3.1 Lite were made available on GitHub (\url{https://github.com/chiehrosswang/TRB_LaTeX_tex}) in June, 2017 for users who do not need R and Sweave functions provided in the original verions.  
+David Pritchard posted the original versions of this template in 2009 and updated it in 2011, soon after TRB began allowing PDF submissions. Gregory Macfarlane made significant adaptations to it in March 2012, allowing for Sweave integration and automatic word and table counts. Ross Wang automated the total word count and made some formatting modifications in July 2015. Version 2.1.1 has been made available on GitHub in January, 2016.  Version 3.1 has been made available on Github (\url{https://github.com/chiehrosswang/TRB_LaTeX_rnw}) in June, 2017.  Versions 2.1.1 Lite and 3.1 Lite were made available on GitHub (\url{https://github.com/chiehrosswang/TRB_LaTeX_tex}) in June, 2017 for users who do not need R and Sweave functions provided in the original verions.  
 
 
 \section{Features}
-The template has a number of features that enable quick and painless manuscript
-authoring.
+The template has a number of features that enable quick and painless manuscript authoring.
 
 \subsection{Title Page}
-The standard \LaTeX\ \verb1\maketitle1 command is not very versatile, so we
-have replaced it with a \verb1titlepage1 environment. This means that the
-writers will be required to manually enter spacings based on the number of
-contributors, but the current settings (12pt between authors, 36pt before, and
-60pt after them) seems to work well. 
+The standard \LaTeX\ \verb1\maketitle1 command is not very versatile, so we have replaced it with a \verb1titlepage1 environment. This means that the writers will be required to manually enter spacings based on the number of contributors, but the current settings (12pt between authors, 36pt before, and 60pt after them) seems to work well. 
 
-Near the bottom of the title page, TRB requires a count of the manuscript's
-words, figures, and tables. This template generates these counts automatically.
-The figure and table counts are simply pulled from the \LaTeX\ counters using
-the \verb1totcount1 package. The word count feature is not as straight-forward,
-as it utilizes a call to the system command \verb1texcount1. Thus to compile
-the document writers must enable \verb#\write18# in their \verb1pdflatex1 call.
+Near the bottom of the title page, TRB requires a count of the manuscript's words, figures, and tables. This template generates these counts automatically. The figure and table counts are simply pulled from the \LaTeX\ counters using the \verb1totcount1 package. The word count feature is not as straight-forward, as it utilizes a call to the system command \verb1texcount1. Thus to compile the document writers must enable \verb#\write18# in their \verb1pdflatex1 call.
 
-In the newest version of this template, we added the total count automatically.
-The total count basically adds not only the word count, but also the equivalent
-count (250 words) for each figure and table.  This is implemented using
-a customized command \verb1\totalwordcount1.  Please see the original code for
-more information.
+In the newest version of this template, we added the total count automatically. The total count basically adds not only the word count, but also the equivalent count (250 words) for each table.  Note that starting from 2018, Figures no longer count toward total word counts.  However, each paper can have only up to 6 figures in total.  The total word count is implemented using a customized command \verb1\totalwordcount1.  Please see the original code for more information.
 
 \subsection{Page Layout}
-The document has 1 inch margins as required, with the author's names in the
-left heading and the page number in the right. The authors heading will need to
-be edited by the writers; automating this from the title page command is not
-currently possible. Paragraphs leading sections and subsections are not
-indented, while all subsequent paragraphs in that section are. Section types
-are defined as outlined by the \trbcite{TRBGuide}
+The document has 1 inch margins as required, with the author's names in the left heading and the page number in the right. The authors heading will need to be edited by the writers; automating this from the title page command is not currently possible. Paragraphs leading sections and subsections are not indented, while all subsequent paragraphs in that section are. Section types are defined as outlined by the \trbcite{TRBGuide}
 
-The document is single-spaced in 12 point Times font. Times New Roman is
-a proprietary font and is therefore not available by installation in
-open-source software. While the differences between Times variants are
-negligible, Times New Roman itself can be used in Mac OSX by compiling under
-\verb1xelatex1.
+The document is single-spaced in 12 point Times font. Times New Roman is a proprietary font and is therefore not available by installation in open-source software. While the differences between Times variants are negligible, Times New Roman itself can be used in Mac OSX by compiling under \verb1xelatex1.
 
 \subsubsection{Line Numbers}
-Manuscript line numbering is implemented using the \verb1lineno1 package. There
-are options to change the font style and type, but the current settings work
-well. Note that the line numbers refresh each page, and that blank lines do not
-receive a number. Currently, line numbers and headers are not shown on the
-title page, but can be easily added by adding \verb1\pagewiselinenumbers1
-command right before the beginning of the title page.
+Manuscript line numbering is implemented using the \verb1lineno1 package. There are options to change the font style and type, but the current settings work well. Note that the line numbers refresh each page, and that blank lines do not receive a number. Currently, line numbers and headers are not shown on the title page, but can be easily added by adding \verb1\pagewiselinenumbers1 command right before the beginning of the title page.
 
 \section{Captions}
-Figure~\ref{fig:trial} shows a Gumbel distribution as an example of captioning.
-As demonstrated, figure captions ought to be sentence capitalized, balded, and
-can be somewhat longer than in other journals.
+Figure~\ref{fig:trial} shows a Gumbel distribution as an example of captioning. As demonstrated, figure captions ought to be sentence capitalized, balded, and can be somewhat longer than in other journals.
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.6\textwidth]{trb_template-gumbel}
-  \caption{This is a random figure to test the counting functionality on the
-  title page. It shows a Gumbel distribution with mode 0 and scale 1. The
-  multinomial logit model assumes that the error terms are distributed
-  identically and independently following this pattern.}\label{fig:trial}
+  \caption{This is a random figure to test the counting functionality on the title page. It shows a Gumbel distribution with mode 0 and scale 1. The multinomial logit model assumes that the error terms are distributed identically and independently following this pattern.}\label{fig:trial}
 \end{figure}
 
-Table captions are somewhat different, requiring initial capitals and are more
-of a title. An example of this is given in Table~\ref{tab:versions}, showing
-the history of this template.
+Table captions are somewhat different, requiring initial capitals and are more of a title. An example of this is given in Table~\ref{tab:versions}, showing the history of this template.
 
 \begin{table}[!ht]
 	\caption{A History of this Template}\label{tab:versions}
@@ -159,27 +104,13 @@ the history of this template.
 \end{table}
 
 \subsection{Bibliography}
-The TRB bibliography style is defined in the \verb1trb.bst1 file which should
-be in your document folder. A new command is specified, \verb1\trbcite{}1 which
-will print the authors and the number of the reference in the order in which it
-is supplied. Note that \verb1\trbcite{}1 prints both the author names and the
-reference number, if you simply need the number of the reference, use command
-\verb|\cite{}|. The References section will be appended to the end of the
-document.
+The TRB bibliography style is defined in the \verb1trb.bst1 file which should be in your document folder. A new command is specified, \verb1\trbcite{}1 which will print the authors and the number of the reference in the order in which it is supplied. Note that \verb1\trbcite{}1 prints both the author names and the reference number, if you simply need the number of the reference, use command
+\verb|\cite{}|. The References section will be appended to the end of the document.
 
-It is very easy to add reference to papers programs written by
-\trbcite{Bierlaire2003} and \trbcite{Bierlaire2008} or to papers like those
-written by \trbcite{Garrow2009} and \trbcite{Koppelman2005}. You can even go
-back and refer to Biog\'eme by \trbcite{Bierlaire2008} a second time. You can
-also cite a group of similar references without printing author names
-\cite{TRBGuide,Bierlaire2003}. This template also groups multiple reference
-numbers together if there are three or more consecutive numbers
-\cite{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005}.
+It is very easy to add reference to papers programs written by \trbcite{Bierlaire2003} and \trbcite{Bierlaire2008} or to papers like those written by \trbcite{Garrow2009} and \trbcite{Koppelman2005}. You can even go back and refer to Biog\'eme by \trbcite{Bierlaire2008} a second time. You can also cite a group of similar references without printing author names \cite{TRBGuide,Bierlaire2003}. This template also groups multiple reference numbers together if there are three or more consecutive numbers \cite{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005}.
 
 \subsection{Equations}
-Intelligent driver model equations from wikipedia
-\url{https://en.wikipedia.org/wiki/Intelligent_driver_model} moved to the left
-using \verb1amsmath1 package with \verb1fleqn1 options.
+Intelligent driver model equations from wikipedia \url{https://en.wikipedia.org/wiki/Intelligent_driver_model} moved to the left using \verb1amsmath1 package with \verb1fleqn1 options.
 
 \begin{linenomath}
   \begin{flalign}
@@ -198,17 +129,12 @@ using \verb1amsmath1 package with \verb1fleqn1 options.
 Two document types, extending from the \verb1[numbered]1 option, can be defined to differentiate the initial submission (i.e., with line numbers and in-line figures and tables) and the final manuscript (i.e., without line numbers and all figures and tables are attached to the end).
 
 \section{Conclusion}
-To make the document from source in a Unix-like OS, issue the
-following commands:
+To make the document from source in a Unix-like OS, issue the following commands:
 \begin{verbatim}
     latexmk trb_template.tex -pdf -pvc -shell-escape
 \end{verbatim}
 
-The \verb1--shell-escape1 option is required to access the command line for the
-word count. Normally this feature is disabled because it is a route of entry
-for malicious software. We promise that there is no such debilitating code in
-this document, and we encourage you to examine any scripts for suspicious code
-before permitting \verb1pdflatex1 from accessing your system.
+The \verb1--shell-escape1 option is required to access the command line for the word count. Normally this feature is disabled because it is a route of entry for malicious software. We promise that there is no such debilitating code in this document, and we encourage you to examine any scripts for suspicious code before permitting \verb1pdflatex1 from accessing your system.
 
 Perl is necessary for ``texcount`` to work and needs a Perl interpreter e.g. [ActivePerl](http://www.activestate.com/activeperl/downloads).
 
