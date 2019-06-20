@@ -48,7 +48,7 @@ The Transportation Research Board (TRB) has unique and seemingly arbitrary requi
 \newpage
 
 \section{Introduction}
-The \trbcite{TRBGuide} has unique and somewhat arbitrary requirements for papers submitted for review and publication. While the initial submission is required to be in PDF format, submissions for publication in Transportation Research Record must be in Microsoft Office format. On top of this, the manuscripts must be line-numbered, captions are bolded and employ atypical punctuation, and the references must be numbered when cited and then printed in order. More details about the manuscript details can be found online at~\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}.
+The \citep{TRBGuide} has unique and somewhat arbitrary requirements for papers submitted for review and publication. While the initial submission is required to be in PDF format, submissions for publication in Transportation Research Record must be in Microsoft Office format. On top of this, the manuscripts must be line-numbered, captions are bolded and employ atypical punctuation, and the references must be numbered when cited and then printed in order. More details about the manuscript details can be found online at~\url{http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf}.
 
 It is assumed that the readers of this document have some significant level of experience in \LaTeX~and \verb1bibtex1. As use of literate programming becomes more widespread in engineering and planning, it is possible that this template may need to be made more robust.
 
@@ -68,7 +68,7 @@ Near the bottom of the title page, TRB requires a count of the manuscript's word
 In the newest version of this template, we added the total count automatically. The total count basically adds not only the word count, but also the equivalent count (250 words) for each table.  Note that starting from 2018, Figures no longer count toward total word counts.  However, each paper can have only up to 6 figures in total.  The total word count is implemented using a customized command \verb1\totalwordcount1.  Please see the original code for more information.
 
 \subsection{Page Layout}
-The document has 1 inch margins as required, with the author's names in the left heading and the page number in the right. The authors heading will need to be edited by the writers; automating this from the title page command is not currently possible. Paragraphs leading sections and subsections are not indented, while all subsequent paragraphs in that section are. Section types are defined as outlined by the \trbcite{TRBGuide}
+The document has 1 inch margins as required, with the author's names in the left heading and the page number in the right. The authors heading will need to be edited by the writers; automating this from the title page command is not currently possible. Paragraphs leading sections and subsections are not indented, while all subsequent paragraphs in that section are. Section types are defined as outlined by the \citep{TRBGuide}
 
 The document is single-spaced in 12 point Times font. Times New Roman is a proprietary font and is therefore not available by installation in open-source software. While the differences between Times variants are negligible, Times New Roman itself can be used in Mac OSX by compiling under \verb1xelatex1.
 
@@ -104,10 +104,10 @@ Table captions are somewhat different, requiring initial capitals and are more o
 \end{table}
 
 \subsection{Bibliography}
-The TRB bibliography style is defined in the \verb1trb.bst1 file which should be in your document folder. A new command is specified, \verb1\trbcite{}1 which will print the authors and the number of the reference in the order in which it is supplied. Note that \verb1\trbcite{}1 prints both the author names and the reference number, if you simply need the number of the reference, use command
+The TRB bibliography style is defined in the \verb1trb.bst1 file which should be in your document folder. A renewed command is specified, \verb1\citep{}1 which will print the authors and the number of the reference in the order in which it is supplied. Note that \verb1\citep{}1 prints both the author names and the reference number, if you simply need the number of the reference, use command
 \verb|\cite{}|. The References section will be appended to the end of the document.
 
-It is very easy to add reference to papers programs written by \trbcite{Bierlaire2003} and \trbcite{Bierlaire2008} or to papers like those written by \trbcite{Garrow2009} and \trbcite{Koppelman2005}. You can even go back and refer to Biog\'eme by \trbcite{Bierlaire2008} a second time. You can also cite a group of similar references without printing author names \cite{TRBGuide,Bierlaire2003}. This template also groups multiple reference numbers together if there are three or more consecutive numbers \cite{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005}.
+It is very easy to add reference to papers programs written by \citep{Bierlaire2003} and \citep{Bierlaire2008} or to papers like those written by \citep{Garrow2009} and \citep{Koppelman2005}. You can even go back and refer to Biog\'eme by \citep{Bierlaire2008} a second time. You can also cite a group of similar references without printing author names \cite{TRBGuide,Bierlaire2003}. This template also groups multiple reference numbers together if there are three or more consecutive numbers \cite{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005}.
 
 \subsection{Equations}
 Intelligent driver model equations from wikipedia \url{https://en.wikipedia.org/wiki/Intelligent_driver_model} moved to the left using \verb1amsmath1 package with \verb1fleqn1 options.
