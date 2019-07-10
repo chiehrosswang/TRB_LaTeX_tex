@@ -42,25 +42,6 @@
   \def\@AuthorHeaders{#1}
 }
 
-% default: 0 number of words per figure (updated 7/20/2018 as TRB now only counts tables towards total word count)
-\def\@WordsPerFigure{0}
-\newcommand{\WordsPerFigure}[1]{%
-  \def\@WordsPerFigure{#1}
-}
-
-% default: 250 number of words per table
-\def\@WordsPerTable{250}
-\newcommand{\WordsPerTable}[1]{%
-  \def\@WordsPerTable{#1}
-}
-
-% TODO: there must be a better way to define this to avoid using 0
-% Variable to control manual word counting
-\def\@TotalWords{0}
-\newcommand{\TotalWords}[1]{%
-  \def\@TotalWords{#1}
-}
-
 % Page layout
 %------------------------------------------------------------------------------ 
 \geometry{textwidth=6.5in, textheight=9.0in}
@@ -155,71 +136,72 @@
 
 % Total world count solution from Tex.SX:
 % https://tex.stackexchange.com/q/255940
+% https://tex.stackexchange.com/q/448605
+
+\makeatletter
+\newread\somefile
 \newcounter{totalwordcounter}
 \newcounter{wordcounter}
 
+% default: 250 number of words per table
+\def\@WordsPerTable{250}
+\newcommand{\WordsPerTable}[1]{%
+	\def\@WordsPerTable{#1}
+}
+
+% TODO: there must be a better way to define this to avoid using 0
+% Variable to control manual word counting
+\def\@TotalWords{0}
+\newcommand{\TotalWords}[1]{%
+	\def\@TotalWords{#1}
+}
 
 % From totcount package
 \regtotcounter{table} 	%count tables
 \regtotcounter{figure} 	%count figures
 
-\if\@TotalWords 0% if defined do not call no need for this 0 used as workaround
-  % TODO: texcount running from latex can be simplified using verbatim package
-  % check texcount faq: http://app.uio.no/ifi/texcount/faq.html#latexcall
-  % \NewDocumentCommand is from xparse package
-  \newread\somefile
-  \NewDocumentCommand{\wordcount}{s}{%
-    \IfFileExists{./\jobname.bbl}%
-      {\immediate\write18{texcount -sum -1 -incbib \jobname.tex > count.txt}}%
-      {\immediate\write18{texcount -sum -1 \jobname.tex > count.txt}}%
-    \immediate\openin\somefile=count.txt%
-    \read\somefile to \@@localdummy%
-    \immediate\closein\somefile%
-    \setcounter{wordcounter}{\@@localdummy}%
-    \IfBooleanF{#1}{%
-    \@@localdummy%   print only if not starred version
-    }%
-  }
+\newcommand{\quickwordcount}[1]{%
+	\immediate\write18{texcount -1 -sum -merge #1.tex > #1-words}%
+	\immediate\openin\somefile=#1-words%
+	\read\somefile to \@@localdummy%
+	\immediate\closein\somefile%
+	\setcounter{wordcounter}{\@@localdummy}%
+	\@@localdummy%
+}
 
-  \newcommand{\totalwordcount}{%
-    \wordcount*% The star allows just getting the number, not printing it
-    \setcounter{totalwordcounter}{\value{wordcounter}}%
-    %\addtocounter{totalwordcounter}{\numexpr\@WordsPerFigure*\totvalue{figure}}
-    % Commented out the above line since TRB no longer counts figures towards total word count
-    \addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
-    \number\value{totalwordcounter}% Output the number
-    % Prevent the call again, otherwise the figure/table counter would be added
-    % again.
-    \renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
-  }
-\else
-\fi
+\newcommand{\totalwordcount}{%
+	\setcounter{totalwordcounter}{\value{wordcounter}}%
+	\addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
+	\number\value{totalwordcounter}% Output the number
+	\renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
+}
 
 % TODO: find better way than multiple hfill and break to get numbered empty
 % lines. Is it really necessary to have empty lines numbered? Its just the way
 % users of word deal with that.
 \renewcommand{\maketitle}{%
-  \thispagestyle{empty}
-  \begin{flushleft}
-    {\MakeUppercase{\bfseries\@title}}\\
-    \hfill\break%
-    \hfill\break%
-    \hfill\break%
-    \@author\\
-    \hfill\break%
-    \hfill\break%
-    \if\@TotalWords 0
-      Word Count: \wordcount words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
-    \else
-      Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
-    \fi
-    \hfill\break%
-    \hfill\break%
-    \hfill\break%
-    \hfill\break%
-    \hfill\break%
-    \hfill\break%
-    Submission Date: \today
-  \end{flushleft}
-\newpage
+	\thispagestyle{empty}
+	\begin{flushleft}
+		{\MakeUppercase{\bfseries\@title}}\\
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\@author\\
+		\hfill\break%
+		\hfill\break%
+		\if\@TotalWords 0
+		Word Count: \quickwordcount{trb_template}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
+		\else
+		Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
+		\fi
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		Submission Date: \today
+	\end{flushleft}
+	\newpage
 }
+\makeatother
