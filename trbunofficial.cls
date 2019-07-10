@@ -8,7 +8,7 @@
 %   2.1   - Jul. 2015, Automatic total word counter and more formattings
 %   2.1.1 - Jan. 2016, Minor modifications and first uploaded to Github
 %   2.1.1 - May. 2016, created a lite version for people to use directly on TeX without Sweave options
-%	4.0	  - Jul. 2019, updated template to be compatible with Overleaf and ShareLaTeX
+%   4.0   - Jul. 2019, updated template to be compatible with Overleaf and ShareLaTeX
 
 % Official trb manual for authors:
 % http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf
