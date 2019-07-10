@@ -1,7 +1,9 @@
+% Repository:  https://github.com/chiehrosswang/TRB_LaTeX_tex
 %
 % Transportation Research Board conference paper template
-% version 3.1 Lite
-%
+% version 4.0 Lite (updates made to be compatible in Overleaf and ShareLaTeX)
+% 
+% 
 % When numbered option is activated, lines are numbered.
 \documentclass[numbered]{trbunofficial}
 \usepackage{graphicx}
@@ -67,7 +69,7 @@ Near the bottom of the title page, TRB requires a count of the manuscript's word
 In the newest version of this template, we added the total count automatically. The total count basically adds not only the word count, but also the equivalent count (250 words) for each table.  Note that starting from 2018, Figures no longer count toward total word counts.  However, each paper can have only up to 6 figures in total.  The total word count is implemented using a customized command \verb1\totalwordcount1.  Please see the original code for more information.
 
 \subsection{Page Layout}
-The document has 1 inch margins as required, with the author's names in the left heading and the page number in the right. The authors heading will need to be edited by the writers; automating this from the title page command is not currently possible. Paragraphs leading sections and subsections are not indented, while all subsequent paragraphs in that section are. Section types are defined as outlined by the \citep{TRBGuide}
+The document has 1 inch margins as required, with the author's names in the left heading and the page number in the right. The authors heading will need to be edited by the writers; automating this from the title page command is not currently possible. Paragraphs leading sections and subsections are not indented, while all subsequent paragraphs in that section are. Section types are defined as outlined by the \citep{TRBGuide}.
 
 The document is single-spaced in 12 point Times font. Times New Roman is a proprietary font and is therefore not available by installation in open-source software. While the differences between Times variants are negligible, Times New Roman itself can be used in Mac OSX by compiling under \verb1xelatex1.
 
@@ -97,7 +99,8 @@ Table captions are somewhat different, requiring initial capitals and are more o
 			2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\
 			2.1.1 Lite & Jun 2017 & Wang & \TeX-only template \\
 			3.1   & Jun 2017 & Wang      & Addition of \verb1trbunofficial.cls1\\
-			3.1 Lite & Jun 2017 & Wang   & Addition of \verb1trbunofficial.cls1\\\hline
+			3.1 Lite & Jun 2017 & Wang   & Addition of \verb1trbunofficial.cls1\\
+			4.0 Lite & Jul 2019 & Wang   & Word count updates for Overleaf/ShareLaTeX compatibility\\\hline
 		\end{tabular}
 	\end{center}
 \end{table}
