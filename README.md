@@ -30,3 +30,6 @@ Using ``-shell-escape`` in TexStudio ([original source](http://tex.stackexchange
 Go to ``Options->Configure texstudio``. Click on ``Commands``. Add ``-shell-escape`` flag to ``pdflatex``:
 
     pdflatex.exe -synctex=1 -interaction=nonstopmode -shell-escape %.tex
+
+# Overleaf
+This template has been published on Overleaf, and it can be found here: https://www.overleaf.com/latex/templates/transportation-research-board-trb-latex-template/jkfndnnkkksw
