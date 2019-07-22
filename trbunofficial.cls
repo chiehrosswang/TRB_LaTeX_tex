@@ -175,6 +175,7 @@
 \NewDocumentCommand{\quickwordcount}{s}{%
 	\immediate\write18{texcount -1 -sum -merge \currfilename > \currfilebase-words}%
 	\immediate\openin\somefile=\currfilebase-words%
+	\write18{rm \currfilebase-words}%
 	\read\somefile to \@@localdummy%
 	\immediate\closein\somefile%
 	\setcounter{wordcounter}{\@@localdummy}%
