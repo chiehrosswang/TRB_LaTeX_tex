@@ -75,9 +75,19 @@
 % EQUATIONS
 %------------------------------------------------------------------------------
 \setlength{\mathindent}{0in}
+
+% Number the equation environment
+\let\oldequation\equation%
+\let\oldendequation\endequation%
+\renewenvironment{equation}{%
+  \linenomath\oldequation%
+}{%
+  \oldendequation\endlinenomath%
+}%
+
 % Set spacing before and after equation to be 0
 \g@addto@macro\normalsize{%
-  \setlength\abovedisplayskip{0pt}
+  \setlength\abovedisplayskip{0pt} % weird space?
   \setlength\belowdisplayskip{0pt}
   \setlength\abovedisplayshortskip{0pt}
   \setlength\belowdisplayshortskip{0pt}
