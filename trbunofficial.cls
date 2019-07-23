@@ -201,7 +201,7 @@
 		\hfill\break%
 		\hfill\break%
 		\hfill\break%
-		Submission Date: \today
+		Submission Date: \trbdate
 	\end{flushleft}
 	\newpage
 }
