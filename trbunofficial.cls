@@ -206,3 +206,8 @@
 	\newpage
 }
 \makeatother
+
+
+% Set date to be the last time possible anywhere on earth (GMT-12), which is exactly one day behind New Zealand's time zone (GMT+12).
+\usepackage{advdate}
+\newcommand{\trbdate}{{\AdvanceDate[-1]\today}}
