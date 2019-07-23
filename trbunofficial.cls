@@ -25,7 +25,7 @@
 % Some pdf conversion tricks? Unsure.
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
-\RequirePackage[pagewise, mathlines]{lineno}
+\RequirePackage[pagewise,mathlines]{lineno}
 \RequirePackage{geometry}
 
 \RequirePackage[sort&compress, numbers]{natbib}
@@ -85,14 +85,6 @@
 }{%
   \oldendequation\endlinenomath%
 }%
-
-% Set spacing before and after equation to be 0
-\g@addto@macro\normalsize{%
-  \setlength\abovedisplayskip{0pt} % weird space?
-  \setlength\belowdisplayskip{0pt}
-  \setlength\abovedisplayshortskip{0pt}
-  \setlength\belowdisplayshortskip{0pt}
-}
 
 % LISTS
 %------------------------------------------------------------------------------ 
