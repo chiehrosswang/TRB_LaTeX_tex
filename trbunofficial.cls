@@ -21,7 +21,8 @@
 \RequirePackage{enumitem}
 \RequirePackage{ccaption}
 \RequirePackage[fleqn]{amsmath}
-\RequirePackage{mathptmx} % Times text series for text and math
+%\RequirePackage{mathptmx} % Times text series for text and math
+\RequirePackage{newtxtext,newtxmath}
 % Some pdf conversion tricks? Unsure.
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
@@ -183,17 +184,17 @@
 \renewcommand{\maketitle}{%
 	\thispagestyle{empty}
 	\begin{flushleft}
-		{\MakeUppercase{\bfseries\@title}}\\
+		{\MakeUppercase{\bfseries\@title}}
 		\hfill\break%
 		\hfill\break%
 		\hfill\break%
-		\@author\\
+		\@author
 		\hfill\break%
 		\hfill\break%
 		\if\@TotalWords 0
-		Word Count: \quickwordcount{trb_template}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
+		Word Count: \quickwordcount{trb_template}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words
 		\else
-		Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
+		Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words
 		\fi
 		\hfill\break%
 		\hfill\break%
@@ -201,7 +202,15 @@
 		\hfill\break%
 		\hfill\break%
 		\hfill\break%
-		Submission Date: \today
+		Submission Date: \trbdate
+	    \hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\hfill\break%
+		\emph{This manuscript has been authored by UT-Battelle, LLC, under contract DE-AC05-00OR22725 with the US Department of Energy (DOE). The US government retains and the publisher, by accepting the article for publication, acknowledges that the US government retains a nonexclusive, paid-up, irrevocable, worldwide license to publish or reproduce the published form of this manuscript, or allow others to do so, for US government purposes. DOE will provide public access to these results of federally sponsored research in accordance with the DOE Public Access Plan (\url{http://energy.gov/downloads/doe-public-access-plan}).}
 	\end{flushleft}
 	\newpage
 }
