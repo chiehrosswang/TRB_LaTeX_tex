@@ -25,11 +25,12 @@
 % Some pdf conversion tricks? Unsure.
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
-\RequirePackage[pagewise, mathlines]{lineno}
+\RequirePackage[pagewise,mathlines]{lineno}
 \RequirePackage{geometry}
 
 \RequirePackage[sort&compress, numbers]{natbib}
 \RequirePackage{xparse}
+\RequirePackage{currfile}
 \RequirePackage{totcount}
 \DeclareOption{numbered}{%
   \linenumbers%
@@ -39,7 +40,7 @@
 % Vars
 %------------------------------------------------------------------------------
 \def\@AuthorHeaders{Name1, Name2 and Name3}
-\newcommand{\AuthorHeaders}[1]{
+\newcommand{\AuthorHeaders}[1]{%
   \def\@AuthorHeaders{#1}
 }
 
@@ -56,7 +57,7 @@
 
 % Header
 %------------------------------------------------------------------------------
-\newpagestyle{main}{
+\newpagestyle{main}{%
 \sethead{\@AuthorHeaders}{}{\thepage}
 }
 \pagestyle{main}
@@ -75,13 +76,15 @@
 % EQUATIONS
 %------------------------------------------------------------------------------
 \setlength{\mathindent}{0in}
-% Set spacing before and after equation to be 0
-\g@addto@macro\normalsize{%
-  \setlength\abovedisplayskip{0pt}
-  \setlength\belowdisplayskip{0pt}
-  \setlength\abovedisplayshortskip{0pt}
-  \setlength\belowdisplayshortskip{0pt}
-}
+
+% Number the equation environment
+\let\oldequation\equation%
+\let\oldendequation\endequation%
+\renewenvironment{equation}{%
+  \linenomath\oldequation%
+}{%
+  \oldendequation\endlinenomath%
+}%
 
 % LISTS
 %------------------------------------------------------------------------------ 
@@ -124,7 +127,7 @@
 % REFERENCES
 % Remove square brackets from the numbering and add indentation to bibliography 
 % in the REFERENCES section
-\renewcommand\@biblabel[1]{#1.\hspace{0.25in}} 
+\renewcommand\@biblabel[1]{#1.\hspace{0.25in}}
 
 % COUNTERS
 %------------------------------------------------------------------------------ 
@@ -139,10 +142,6 @@
 % https://tex.stackexchange.com/q/255940
 % https://tex.stackexchange.com/q/448605
 
-\makeatletter
-\newread\somefile
-\newcounter{totalwordcounter}
-\newcounter{wordcounter}
 
 % default: 250 number of words per table
 \def\@WordsPerTable{250}
@@ -161,16 +160,24 @@
 \regtotcounter{table} 	%count tables
 \regtotcounter{figure} 	%count figures
 
-\newcommand{\quickwordcount}[1]{%
-	\immediate\write18{texcount -1 -sum -merge #1.tex > #1-words}%
-	\immediate\openin\somefile=#1-words%
+\newcounter{wordcounter}
+\newcounter{totalwordcounter}
+
+\newread\somefile%
+\NewDocumentCommand{\quickwordcount}{s}{%
+	\immediate\write18{texcount -1 -sum -merge \currfilename > \currfilebase-words}%
+	\immediate\openin\somefile=\currfilebase-words%
+	\write18{rm \currfilebase-words}%
 	\read\somefile to \@@localdummy%
 	\immediate\closein\somefile%
 	\setcounter{wordcounter}{\@@localdummy}%
-	\@@localdummy%
+	\IfBooleanF{#1}{%
+		\@@localdummy%   print only if not starred version
+	}%
 }
 
 \newcommand{\totalwordcount}{%
+	\quickwordcount*
 	\setcounter{totalwordcounter}{\value{wordcounter}}%
 	\addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
 	\number\value{totalwordcounter}% Output the number
@@ -191,7 +198,7 @@
 		\hfill\break%
 		\hfill\break%
 		\if\@TotalWords 0
-		Word Count: \quickwordcount{trb_template}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
+		Word Count: \quickwordcount~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
 		\else
 		Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
 		\fi
@@ -205,8 +212,6 @@
 	\end{flushleft}
 	\newpage
 }
-\makeatother
-
 
 % Set date to be the last time possible anywhere on earth (GMT-12), which is exactly one day behind New Zealand's time zone (GMT+12).
 \usepackage{advdate}
