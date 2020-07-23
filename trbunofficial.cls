@@ -74,13 +74,13 @@
 
 % EQUATIONS
 %------------------------------------------------------------------------------
-\setlength{\mathindent}{0in}
+\setlength{\mathindent}{1in}
 % Set spacing before and after equation to be 0
 \g@addto@macro\normalsize{%
-  \setlength\abovedisplayskip{0pt}
-  \setlength\belowdisplayskip{0pt}
-  \setlength\abovedisplayshortskip{0pt}
-  \setlength\belowdisplayshortskip{0pt}
+  \setlength\abovedisplayskip{6pt}
+  \setlength\belowdisplayskip{6pt}
+  \setlength\abovedisplayshortskip{3pt}
+  \setlength\belowdisplayshortskip{3pt}
 }
 
 % LISTS
