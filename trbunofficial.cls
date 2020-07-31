@@ -190,7 +190,7 @@
 \renewcommand{\maketitle}{%
 	\thispagestyle{empty}
 	\begin{flushleft}
-		{\MakeUppercase{\bfseries\@title}}\\
+		{\large\bfseries\@title}\\
 		\hfill\break%
 		\hfill\break%
 		\hfill\break%
