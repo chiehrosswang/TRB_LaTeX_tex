@@ -27,6 +27,7 @@
 \RequirePackage{textcomp}
 \RequirePackage[pagewise, mathlines]{lineno}
 \RequirePackage{geometry}
+\RequirePackage[realmainfile]{currfile}
 
 \RequirePackage[sort&compress, numbers]{natbib}
 \RequirePackage{xparse}
@@ -191,7 +192,7 @@
 		\hfill\break%
 		\hfill\break%
 		\if\@TotalWords 0
-		Word Count: \quickwordcount{trb_template}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
+		Word Count: \quickwordcount{\currfilebase}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
 		\else
 		Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
 		\fi
