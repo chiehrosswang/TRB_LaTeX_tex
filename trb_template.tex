@@ -5,36 +5,17 @@
 % 
 % When numbered option is activated, lines are numbered.
 \documentclass[numbered]{trbunofficial}
-\usepackage{graphicx}
-
-% \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
-% For TRB version hide links
-\usepackage[hidelinks]{hyperref}
 
 % Put here what will go to headers as author
 \AuthorHeaders{Pritchard, Macfarlane, and Wang}
-\title{A \LaTeX\ Template for Papers Submitted to the Transportation
-Research Board}
 
-% TODO: add macros for easier formatting of \author.
-\author{%
-  \textbf{David Pritchard}\\
-  davidpritchard.org\\
-  \hfill\break% this is a way to add line numbering on empty line
-  \textbf{Gregory S. Macfarlane, Ph.D.}\\
-  \hfill\break%
-  \textbf{Chieh (Ross) Wang, Ph.D., Corresponding Author}\\
-  cwang@ornl.gov
-}
+\title{A \LaTeX\ Template for Transportation Research Board Annual Meeting Papers}
 
-% If necessary modify the number of words per table or figure default is set to
-% 250 words per table
-% \WordsPerTable{250}
+% Add authors using \TRBauthor{Name}{Affiliation}{Email}[ORCID]
+\TRBauthor{David Pritchard}{davidpritchard.org}{davidpritchard@fake.email}
+\TRBauthor{Gregory S. Macfarlane, Ph.D.}{gregmacfarlane.github.io}{gregsmacfarlane@fake.email}[]
+\TRBauthor*{Chieh (Ross) Wang}{Oak Ridge National Laboratory}{cwang@ornl.gov}[0000-0001-8073-7683]
 
-% If words are counted manually, put that number here. This does not include
-% figures and tables. This can also be used to avoid problems with texcount
-% program i.e. if one does not have it installed.
-% \TotalWords{200}
 
 \begin{document}
 \maketitle
@@ -99,7 +80,11 @@ Table captions are somewhat different, requiring initial capitals and are more o
 			2.1.1 Lite & Jun 2017 & Wang & \TeX-only template \\
 			3.1   & Jun 2017 & Wang      & Addition of \verb1trbunofficial.cls1\\
 			3.1 Lite & Jun 2017 & Wang   & Addition of \verb1trbunofficial.cls1\\
-			4.0 Lite & Jul 2019 & Wang   & Word count updates for Overleaf/ShareLaTeX compatibility\\\hline
+			4.0 Lite & Jul 2019 & Wang   & Word count updates for Overleaf compatibility\\
+            5.0 Lite & Aug 2025 & Wang   & Update word counting function*\\\hline
+                \multicolumn{4}{l}{\footnotesize
+                * Total counts include: Title, front matter, body texts, headers, captions, references. Total word counts do not}\\
+                \multicolumn{4}{l}{\footnotesize include text in tables (each table is automatically counted as 250 words).} \\
 		\end{tabular}
 	\end{center}
 \end{table}

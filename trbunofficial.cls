@@ -2,6 +2,8 @@
 % version 4.0
 % 
 % David R. Pritchard, http://davidpritchard.org
+% Gregory S. Macfarlane, https://gregmacfarlane.github.io/
+% C. Ross Wang, https://crosswang.org
 %   1.0   - Mar. 2009
 %   1.1   - Sep. 2011, fixes for captions
 %   2.0   - Mar. 2012, Reorganized title page incl. automatic counters
@@ -9,29 +11,36 @@
 %   2.1.1 - Jan. 2016, Minor modifications and first uploaded to Github
 %   2.1.1 - May. 2016, created a lite version for people to use directly on TeX without Sweave options
 %   4.0	  - Jul. 2019, updated template to be compatible with Overleaf and ShareLaTeX
+%   5.0   - Aug. 2025, updated template to improve auto word counts and authorship population
 
-% Official trb manual for authors:
-% http://onlinepubs.trb.org/onlinepubs/AM/InfoForAuthors.pdf
+% Official trb Author Instructions:
+% https://trb.secure-platform.com/a/page/TRBPaperReview
+
+% Unofficial TRB LaTeX template:
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{trbunofficial}[2017/06/10 TRB latex template]
-
+\ProvidesClass{trbunofficial}[08/31/2025 TRB LaTeX template update]
 \LoadClass[titlepage, oneside, 12pt]{article}
 
 \RequirePackage[tiny, rm, pagestyles]{titlesec}
 \RequirePackage{enumitem}
 \RequirePackage{ccaption}
 \RequirePackage[fleqn]{amsmath}
-\RequirePackage{mathptmx} % Times text series for text and math
-% Some pdf conversion tricks? Unsure.
+\RequirePackage{graphicx}
 \RequirePackage[T1]{fontenc}
+\RequirePackage{newtxtext}  % Times-like text
+\RequirePackage{newtxmath}  % Times-like math with bold
 \RequirePackage{textcomp}
 \RequirePackage[pagewise, mathlines]{lineno}
 \RequirePackage{geometry}
-\RequirePackage[realmainfile]{currfile}
-
+\RequirePackage[realmainfile]{currfile} % Get main filename for auto word count
 \RequirePackage[sort&compress, numbers]{natbib}
 \RequirePackage{xparse}
 \RequirePackage{totcount}
+\RequirePackage{etoolbox}   % Added for author macro
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{xurl}       % Handle long URLs to break
+\urlstyle{same}             % URLs use same font as other text
+
 \DeclareOption{numbered}{%
   \linenumbers%
 }
@@ -100,7 +109,6 @@
 \renewcommand{\fnum@table}{\bfseries TABLE~\thetable}
 \captiontitlefont{\bfseries \boldmath}
 \captiondelim{\;}
-%\precaption{\boldmath}
 
 
 % CITATIONS
@@ -129,19 +137,9 @@
 
 % COUNTERS
 %------------------------------------------------------------------------------ 
-% TRB requires the total number of words, figures, and tables to be displayed
-% on the title page. This is possible under the totcount and the xparse
-% packages on CTAN.
-%
-% Note that a total word count is added in V 2.1 to print a single value that
-% is calculated as: numberofwords + numberoffigures*250 + numberoftable*250
+% Total word count is calculated as: numberofwords + numberoftable*250
 
-% Total world count solution from Tex.SX:
-% https://tex.stackexchange.com/q/255940
-% https://tex.stackexchange.com/q/448605
-
-\makeatletter
-\newread\somefile
+\newread\wcfile     % word count temp file
 \newcounter{totalwordcounter}
 \newcounter{wordcounter}
 
@@ -160,15 +158,18 @@
 
 % From totcount package
 \regtotcounter{table} 	%count tables
-\regtotcounter{figure} 	%count figures
+% \regtotcounter{figure} 	%count figures
 
 \newcommand{\quickwordcount}[1]{%
-	\immediate\write18{texcount -1 -sum -merge #1.tex > #1-words}%
-	\immediate\openin\somefile=#1-words%
-	\read\somefile to \@@localdummy%
-	\immediate\closein\somefile%
-	\setcounter{wordcounter}{\@@localdummy}%
-	\@@localdummy%
+	\immediate\write18{texcount -1 -merge -incbib -sum -q -total -template="{SUM}" #1.tex output.bbl | tr -cd '0-9' > #1-wc}%
+        \IfFileExists{#1-wc}{%
+	   \immediate\openin\wcfile=#1-wc%
+            \read\wcfile to \@@localdummy%
+    	\immediate\closein\wcfile%
+            \write18{rm \wcfile}
+    	\setcounter{wordcounter}{\@@localdummy}%
+    	\@@localdummy%
+        }
 }
 
 \newcommand{\totalwordcount}{%
@@ -178,18 +179,87 @@
 	\renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
 }
 
+
+% ===== TRB author macro =====
+\newif\ifTRB@havecorr \TRB@havecorrfalse 
+\newcommand*\TRB@authors{}%
+\def\TRB@append#1{\g@addto@macro\TRB@authors{#1}}%
+
+% clickable email if hyperref is loaded; otherwise monospace
+\@ifpackageloaded{hyperref}{%
+  \newcommand\TRB@email[1]{\href{mailto:#1}{#1}}%
+}{%
+  \newcommand\TRB@email[1]{\texttt{#1}}%
+}
+
+% require a non-empty email; warn (not error) if it lacks '@'
+\def\TRB@requireemail#1{%
+  \edef\TRB@tmpa{\detokenize{#1}}%
+  \ifx\TRB@tmpa\@empty
+    \PackageError{trb}{Empty email in \string\TRBauthor}{%
+      Use \string\TRBauthor[*]{Name}{Affiliation}{email}[orcid][note].}%
+  \fi
+  % If xstring is loaded, warn when '@' is missing
+  \@ifpackageloaded{xstring}{%
+    \IfSubStr{\TRB@tmpa}{\detokenize{@}}{}{%
+      \PackageWarning{trb}{Email `#1' has no @; continuing}%
+    }%
+  }{}%
+}
+
+% star mark helpers
+\def\TRB@mark@none{}%
+\def\TRB@mark@star{\textsuperscript{*}}%
+
+% build one author block
+% #1 corr author mark, #2 Name, #3 Affil, #4 email, #5 orcid or \relax
+\def\TRB@build@author#1#2#3#4#5{%
+  \TRB@requireemail{#4}%
+  \TRB@append{%
+    \textbf{#2}#1\\%
+    #3\\%
+    Email:~\TRB@email{#4}%
+    \ifx\relax#5\relax\else\\ ORCID:~#5\fi%
+    \\[12pt]%
+  }%
+  % if this author is starred, remember it
+  \ifx#1\TRB@mark@star
+    \global\TRB@havecorrtrue
+    \xdef\TRB@corremail{#4}%
+  \fi
+}
+
+% parse optional [orcid] AFTER mandatory email (no [note] anymore)
+\def\TRB@optA@afterEmail#1#2#3#4{%
+  \@ifnextchar[{\TRB@optB@afterEmail{#1}{#2}{#3}{#4}}{\TRB@build@author{#1}{#2}{#3}{#4}\relax}%
+}
+\def\TRB@optB@afterEmail#1#2#3#4[#5]{%
+  \TRB@build@author{#1}{#2}{#3}{#4}{#5}%
+}
+
+% \TRBauthor[*]{Name}{Affiliation}{email}[orcid][note]
+\def\TRBauthor{\@ifstar{\TRB@author@star}{\TRB@author@nostar}}
+\def\TRB@author@nostar#1#2#3{\TRB@optA@afterEmail{\TRB@mark@none}{#1}{#2}{#3}}
+\def\TRB@author@star  #1#2#3{\TRB@optA@afterEmail{\TRB@mark@star}{#1}{#2}{#3}}
+
+% install into \author for \maketitle
+\newcommand{\TRBsetauthors}{\author{\TRB@authors}}
+
+
 % TODO: find better way than multiple hfill and break to get numbered empty
 % lines. Is it really necessary to have empty lines numbered? Its just the way
 % users of word deal with that.
 \renewcommand{\maketitle}{%
+        \TRBsetauthors
 	\thispagestyle{empty}
 	\begin{flushleft}
-		{\MakeUppercase{\bfseries\@title}}\\
+		{\large{\bfseries\@title}}\\
 		\hfill\break%
 		\hfill\break%
+		\@author
 		\hfill\break%
-		\@author\\
 		\hfill\break%
+            \ifTRB@havecorr \textsuperscript{*}~Corresponding author\\ \fi
 		\hfill\break%
 		\if\@TotalWords 0
 		Word Count: \quickwordcount{\currfilebase}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
@@ -198,15 +268,10 @@
 		\fi
 		\hfill\break%
 		\hfill\break%
-		\hfill\break%
-		\hfill\break%
-		\hfill\break%
-		\hfill\break%
 		Submission Date: \trbdate
 	\end{flushleft}
 	\newpage
 }
-\makeatother
 
 
 % Set date to be the last time possible anywhere on earth (GMT-12), which is exactly one day behind New Zealand's time zone (GMT+12).
