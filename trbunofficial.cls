@@ -212,32 +212,38 @@
 \def\TRB@mark@star{\textsuperscript{*}}%
 
 % build one author block
-% #1 corr author mark, #2 Name, #3 Affil, #4 email, #5 orcid or \relax
-\def\TRB@build@author#1#2#3#4#5{%
+% #1 corr mark, #2 Name, #3 Affil, #4 email, #5 address or \relax, #6 orcid or \relax
+\def\TRB@build@author#1#2#3#4#5#6{%
   \TRB@requireemail{#4}%
   \TRB@append{%
     \textbf{#2}#1\\%
     #3\\%
+    \ifx\relax#5\relax\else #5\\\fi
     Email:~\TRB@email{#4}%
-    \ifx\relax#5\relax\else\\ ORCID:~#5\fi%
+    \ifx\relax#6\relax\else\\ ORCID:~#6\fi%
     \\[12pt]%
   }%
-  % if this author is starred, remember it
   \ifx#1\TRB@mark@star
     \global\TRB@havecorrtrue
     \xdef\TRB@corremail{#4}%
   \fi
 }
 
-% parse optional [orcid] AFTER mandatory email (no [note] anymore)
+% parse optional [address] then optional [orcid] AFTER mandatory email
 \def\TRB@optA@afterEmail#1#2#3#4{%
-  \@ifnextchar[{\TRB@optB@afterEmail{#1}{#2}{#3}{#4}}{\TRB@build@author{#1}{#2}{#3}{#4}\relax}%
+  \@ifnextchar[{\TRB@optAddr@afterEmail{#1}{#2}{#3}{#4}}%
+               {\TRB@build@author{#1}{#2}{#3}{#4}\relax\relax}%
 }
-\def\TRB@optB@afterEmail#1#2#3#4[#5]{%
-  \TRB@build@author{#1}{#2}{#3}{#4}{#5}%
+\def\TRB@optAddr@afterEmail#1#2#3#4[#5]{%
+  \@ifnextchar[{\TRB@optOrcid@afterAddr{#1}{#2}{#3}{#4}{#5}}%
+               {\TRB@build@author{#1}{#2}{#3}{#4}{#5}\relax}%
+}
+\def\TRB@optOrcid@afterAddr#1#2#3#4#5[#6]{%
+  \TRB@build@author{#1}{#2}{#3}{#4}{#5}{#6}%
 }
 
-% \TRBauthor[*]{Name}{Affiliation}{email}[orcid][note]
+
+% \TRBauthor[*]{Name}{Affiliation}{email}[address][orcid]
 \def\TRBauthor{\@ifstar{\TRB@author@star}{\TRB@author@nostar}}
 \def\TRB@author@nostar#1#2#3{\TRB@optA@afterEmail{\TRB@mark@none}{#1}{#2}{#3}}
 \def\TRB@author@star  #1#2#3{\TRB@optA@afterEmail{\TRB@mark@star}{#1}{#2}{#3}}
@@ -262,9 +268,9 @@
             \ifTRB@havecorr \textsuperscript{*}~Corresponding author\\ \fi
 		\hfill\break%
 		\if\@TotalWords 0
-		Word Count: \quickwordcount{\currfilebase}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
+		Word Count:~\quickwordcount{\currfilebase}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
 		\else
-		Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
+		Word Count:~\@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
 		\fi
 		\hfill\break%
 		\hfill\break%
