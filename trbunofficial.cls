@@ -41,9 +41,6 @@
 \RequirePackage{xurl}       % Handle long URLs to break
 \urlstyle{same}             % URLs use same font as other text
 
-\def\footnote#1{\svfootnote{\rightskip\dimexpr
-  -\marginparsep-\marginparwidth #1}}
-
 \DeclareOption{numbered}{%
   \linenumbers%
 }
@@ -87,7 +84,7 @@
 
 % EQUATIONS
 %------------------------------------------------------------------------------
-\setlength{\mathindent}{1in}
+\setlength{\mathindent}{0in}
 % Set spacing before and after equation to be 0
 \g@addto@macro\normalsize{%
   \setlength\abovedisplayskip{6pt}
