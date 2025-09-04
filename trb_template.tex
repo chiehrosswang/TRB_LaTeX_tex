@@ -1,28 +1,34 @@
+% =======
+%
+% Transportation Research Board annual meeting paper template (unofficial)
 % Repository:  https://github.com/chiehrosswang/TRB_LaTeX_tex
 %
-% Transportation Research Board conference paper template
-% version 4.0 Lite (updates made to be compatible in Overleaf and ShareLaTeX)
-% 
+% =======
+
 % When numbered option is activated, lines are numbered.
 \documentclass[numbered]{trbunofficial}
 
-% Put here what will go to headers as author
-\AuthorHeaders{Name, Name, and Name}
+\begin{document}
 
+% ===== TITLE ===== %
 \title{A \LaTeX\ Template for Transportation Research Board Annual Meeting Papers}
 
-%% TODO: include authorship in total word count
+% ===== AUTHORSHIP ===== %
 % Add authors using \TRBauthor{Name}{Affiliation}{Email}[Address][ORCID]
 \TRBauthor{Academic Author Name}{Department of XXX}{author@university.edu}[City, State or Country, and Postcode][0000-xxxx-1234-5678]
 \TRBauthor{Public Sector Author Name}{XXStateXX Department of Transportation}{abc@dot.gov}[City, State or Country, Postcode]
 \TRBauthor*{Private Practitioner Author Name}{Company}{enj@abc.com}[][0000-xxxx-8765-4321]
 
+% Put here what will go to headers as author
+\AuthorHeaders{Name, Name, and Name}
 
-\begin{document}
+% ===== TITLE FOOTNOTE ===== %
+% Optional: Add a footnote for disclaimers, copyright notice, etc.
+\TRBtitlefootnote{This \LaTeX\ template is unofficial and may not meet current TRB requirements. Please review the latest submission rules at TRB’s Instructions For Authors site \href{https://trb.secure-platform.com/a/page/TRBPaperReview}{(https://trb.secure-platform.com/a/page/TRBPaperReview)} and ensure your paper is compliant. Noncompliant papers may be rejected.}
+
 \maketitle
 
 \section{Abstract}
-
 The Transportation Research Board (TRB) has unique and seemingly arbitrary requirements for manuscripts submitted for review. These requirements make it difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes close to fooling the guidelines. This represents an initial effort at creating a template to meet the requirements of TRB authors using \LaTeX, R, Sweave, and/or other literate programming software.
 
 \hfill\break%

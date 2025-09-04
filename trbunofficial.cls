@@ -1,5 +1,5 @@
 % Transportation Research Board conference paper template
-% version 4.0
+% version 5.0
 % 
 % David R. Pritchard, http://davidpritchard.org
 % Gregory S. Macfarlane, https://gregmacfarlane.github.io/
@@ -41,6 +41,9 @@
 \RequirePackage{xurl}       % Handle long URLs to break
 \urlstyle{same}             % URLs use same font as other text
 
+\def\footnote#1{\svfootnote{\rightskip\dimexpr
+  -\marginparsep-\marginparwidth #1}}
+
 \DeclareOption{numbered}{%
   \linenumbers%
 }
@@ -48,7 +51,7 @@
 
 % Vars
 %------------------------------------------------------------------------------
-\def\@AuthorHeaders{Name1, Name2 and Name3}
+\def\@AuthorHeaders{}
 \newcommand{\AuthorHeaders}[1]{
   \def\@AuthorHeaders{#1}
 }
@@ -160,6 +163,7 @@
 \regtotcounter{table} 	%count tables
 % \regtotcounter{figure} 	%count figures
 
+
 \newcommand{\quickwordcount}[1]{%
 	\immediate\write18{texcount -1 -merge -incbib -sum -q -total -template="{SUM}" #1.tex output.bbl | tr -cd '0-9' > #1-wc}%
         \IfFileExists{#1-wc}{%
@@ -252,9 +256,28 @@
 \newcommand{\TRBsetauthors}{\author{\TRB@authors}}
 
 
-% TODO: find better way than multiple hfill and break to get numbered empty
-% lines. Is it really necessary to have empty lines numbered? Its just the way
-% users of word deal with that.
+% ===== Title-page footnotes (disclaimers / copyright) =====
+% Collect footnotes to print on the title page.
+\newcommand*\TRB@titlefootnotes{}%
+
+\NewDocumentCommand{\TRBtitlefootnote}{m}{%
+  \begingroup
+    \renewcommand\thefootnote{}%
+    \renewcommand\@makefntext[1]{\parindent=0pt\noindent ##1}%
+    \footnotetext[0]{#1}%
+  \endgroup
+}
+
+% Print collected footnotes on the title page.
+\newcommand*\TRB@printTitleFootnotes{%
+  \TRB@titlefootnotes
+  \gdef\TRB@titlefootnotes{}%
+}
+
+
+
+% ===== MAKE TITLE PAGE =====
+% TODO: find better way than multiple hfill and break to get numbered empty lines. Is it really necessary to have empty lines numbered? Its just the way users of word deal with that.
 \renewcommand{\maketitle}{%
         \TRBsetauthors
 	\thispagestyle{empty}
@@ -276,6 +299,9 @@
 		\hfill\break%
 		Submission Date: \trbdate
 	\end{flushleft}
+
+        % Print collected title-page footnotes
+        \TRB@printTitleFootnotes
 	\newpage
 }
 
