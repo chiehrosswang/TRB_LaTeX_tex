@@ -1255,6 +1255,51 @@ FUNCTION {unpublished}
   fin.entry
 }
 
+FUNCTION {online}
+{ output.bibitem
+  % Authors (formatted), only if present
+  author empty$
+    { "" }
+    { author "author" format.names }
+  if$
+  output
+
+  % Title (emphasized) if present
+  title empty$
+    { "" }
+    { title emphasize }
+  if$
+  output
+
+  new.sentence
+
+  % URL line if present
+  url empty$
+    { "" }
+    { new.block " \url{" url * "}" * }
+  if$
+  output
+
+  % Use URL access date instead of year if present
+  urldate empty$
+    { 
+      % Year (fallback to "" if STILL missing)
+      year empty$
+        { "" }
+        { year }
+      if$
+      output
+    }
+    { new.block "Accessed " urldate * }
+  if$
+  output
+
+  % Note, if present
+  note field.or.null output
+
+  fin.entry
+}
+
 FUNCTION {default.type} { misc }
 READ
 FUNCTION {sortify}
@@ -1292,35 +1337,6 @@ FUNCTION {format.lab.names}
         }
       if$
     }
-  if$
-}
-
-FUNCTION {online}
-{ output.bibitem
-  format.authors output        % print authors if any
-  format.title output          % safe even if empty
-  new.sentence
-  year empty$
-    { "????" output }
-    { year output }
-  if$
-  format.url output
-  format.urldate output
-  note output
-  fin.entry
-}
-
-FUNCTION {format.url}
-{ url empty$
-    { "" }
-    { new.block "Available at: \url{" url * "}" * }
-  if$
-}
-
-FUNCTION {format.urldate}
-{ urldate empty$
-    { "" }
-    { " (accessed " urldate * ")" * }
   if$
 }
 
@@ -1568,4 +1584,4 @@ EXECUTE {end.bib}
 %%
 %% End of file `trb.bst'.
 
-%% TODO: fix url and urldate formatting in the references.
+%% TODO: prettify urldate format.
