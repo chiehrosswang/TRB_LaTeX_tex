@@ -1,0 +1,184 @@
+% ======================================================================
+% TRB Annual Meeting Paper (unofficial) — Example Manuscript
+% Repo: https://github.com/chiehrosswang/TRB_LaTeX_tex
+% ======================================================================
+
+\documentclass[numbered]{trbunofficial2}
+
+\begin{document}
+
+% ---------- Title Page ----------
+% Place Title Page AFTER \begin{document} and BEFORE \maketitle 
+% to include the front matter in word count
+
+% Paper title
+\title{A \LaTeX\ Template for Transportation Research Board Annual Meeting Papers}
+
+% Add author(s) with: \TRBauthor[*]{Name}{Affiliation}{Email}[Address][ORCID]; Address and ORCID are optional
+\TRBauthor{Academic Author Name}{Department of XXX, WWW University}{academicaname@university.edu}[City, State or Country, Postcode][0000-XXXX-1234-5678]
+\TRBauthor{Public Sector Author Name}{Some State Department of Transportation}{ppaname@dot.ss.gov}[City, State or Country, Postcode]
+\TRBauthor*{Private Practitioner Author Name}{Some Private Transportation Company}{ppaname@some-private-transport.com}[][0000-ZZZZ-8765-4321]
+
+% Short author line for the running header
+\AuthorHeaders{Name, Name, and Name}
+
+% Optional title-page disclaimer/copyright
+\TRBtitlefootnote{%
+  This \LaTeX\ template is unofficial and may not meet current TRB requirements. Please review the latest submission rules at \href{https://trb.secure-platform.com/a/page/TRBPaperReview}{TRB’s Instructions for Authors} and ensure your paper is compliant. Noncompliant papers may be rejected.
+}
+
+\maketitle
+
+% ---------- Abstract ----------
+\section{Abstract}
+The Transportation Research Board (TRB) has unique requirements for manuscripts submitted for review. These can make \LaTeX\ workflows fiddly, and no existing style perfectly mirrors the guidelines. This template offers a pragmatic starting point for authors using \LaTeX\ (and related literate programming tools) while matching TRB conventions.
+
+\hfill\break%
+\noindent\textit{Keywords}: Keyword1, Keyword2
+
+\newpage
+
+% ---------- Introduction ----------
+\section{Introduction}\label{sec:intro}
+The \citep{TRBGuide} outlines specific requirements for submissions. Initial submissions are PDFs, while accepted papers for the \textit{Transportation Research Record} may require Microsoft Office formats. Manuscripts must be line-numbered; captions are bold with TRB-specific punctuation; in-text citations are numbered and the reference list is ordered numerically. See the author information online at \url{https://trb.secure-platform.com/a/page/TRBPaperReview}.
+
+We assume basic familiarity with \LaTeX\ and \verb|bibtex|. As literate programming becomes more common, the template may evolve to support additional workflows.
+
+
+\subsection{History}
+David R. Pritchard released the original template in 2009 and updated it in 2011. Gregory Macfarlane extended it in 2012 (Sweave integration and auto counts). C.\ Ross Wang automated total word count calculation and improved formatting in 2015, added GitHub releases in 2016, and provided \TeX-only variants in 2017 (\url{https://github.com/chiehrosswang/TRB_LaTeX_tex}) and an RNW version (\url{https://github.com/chiehrosswang/TRB_LaTeX_rnw}). The 2019 and 2025 updates focused on the \TeX-only version: the 2019 update improved Overleaf compatibility, while the 2025 update enhanced word-counting and authorship blocks.
+
+% ---------- Features ----------
+\section{Features}
+This template targets quick and TRB-compliant manuscript assembly \cite{trbwebsite}.
+
+\subsection{Title Page}
+The class provides a custom \verb|\maketitle| that prints authors (via \verb|\TRBauthor|), a word count (with tables counted as 250 words each by default), and the submission date. Word counting uses \verb|texcount| via shell escape; compile with \verb|--shell-escape| (see \customref{the BUILD section}{sec:build}).
+
+\subsection{Page Layout}
+Margins are 1~in. The running header shows authors (set with \verb|\AuthorHeaders|) at the left and the page number at the right. Headings and spacing follow TRB conventions.
+
+\subsection{Line Numbers}
+Line numbering uses the \verb|lineno| package and resets each page. Blank lines are not numbered. The \verb|numbered| class option enables line numbers.
+
+% ---------- More Features ----------
+\section{More Features}
+
+% ---------- Captions ----------
+\subsection{Captions}
+Figure~\ref{fig:trial} shows a Gumbel distribution as an example. Figure captions use sentence case.  Table captions use Title Case and function as a short title. Table~\ref{tab:versions} summarizes the template history.  Both Figure and Table captions are bold.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\linewidth]{trb_template-gumbel}
+  \caption{Example figure illustrating the caption style and counting on the title page.}\label{fig:trial}
+\end{figure}
+
+\begin{table}[!ht]
+  \caption{A History of this Template}\label{tab:versions}
+  \begin{center}
+      \begin{tabular}{llll}
+        \hline
+        Version & Date & Author & Contributions \\
+        \hline
+        1.0        & Sep 2009 & Pritchard & Initial work \\
+        1.1        & Mar 2011 & Pritchard & Caption fixes \\
+        2.0        & Mar 2012 & Macfarlane & Automation, documentation \\
+        2.1        & Jul 2015 & Wang       & More automation and formatting \\
+        2.1.1      & Jan 2016 & Wang       & Minor modifications; GitHub \\
+        2.1.1 Lite & Jun 2017 & Wang       & \TeX-only template \\
+        3.1        & Jun 2017 & Wang       & Added \verb|trbunofficial.cls| \\
+        3.1 Lite   & Jun 2017 & Wang       & Added \verb|trbunofficial.cls| \\
+        4.0 Lite   & Jul 2019 & Wang       & Word-count updates for Overleaf \\
+        5.0 Lite   & Aug 2025 & Wang       & Word-count improvements* \\
+        \hline
+        \multicolumn{4}{l}{\footnotesize
+        * Total counts include: Title, front matter, body texts, headers, captions, references. Total word counts do not}\\
+        \multicolumn{4}{l}{\footnotesize include text in tables (each table is automatically counted as 250 words).} \\
+      \end{tabular}
+  \end{center}
+\end{table}
+
+% ---------- Bibliography ----------
+\subsection{Bibliography}
+Use \verb|trb.bst|. The command \verb|\citep{}| prints authors with the reference number; \verb|\cite{}| prints only the number. References appear in numerical order.
+
+Examples include \citep{Bierlaire2003,Bierlaire2008,Garrow2009,Koppelman2005} and grouped numeric citations \cite{TRBGuide,Bierlaire2003}.
+
+% ---------- Equations ----------
+\subsection{Equations}
+Equations are left aligned with no extra indentation. Below is the Intelligent Driver Model (from \url{https://en.wikipedia.org/wiki/Intelligent_driver_model}).
+
+\begin{linenomath}
+\begin{align}
+  & \dot{x}_\alpha = \frac{\mathrm{d}x_\alpha}{\mathrm{d}t} = v_\alpha,\\
+  & \dot{v}_\alpha = \frac{\mathrm{d}v_\alpha}{\mathrm{d}t}
+  = a\!\left( 1 - \left(\frac{v_\alpha}{v_0}\right)^\delta
+      - \left(\frac{s^*(v_\alpha,\Delta v_\alpha)}{s_\alpha}\right)^2 \right), \\
+  &s^*(v_\alpha,\Delta v_\alpha)
+  = s_0 + v_\alpha T + \frac{v_\alpha\,\Delta v_\alpha}{2\sqrt{a\,b}}\,.
+\end{align}
+\end{linenomath}
+
+% ---------- Section Referencing ----------
+\subsection{Referencing Sections by Custom Names}
+Because this template does not use section numbering, referencing
+sections directly can be difficult. To address this, you can create
+hyperlinks to labeled sections with your own display text using the
+\verb|\customref| command: \verb|\customref{Displayed Text}{label}|.
+
+For example, if you have defined \verb|\label{sec:intro}| for the
+Introduction section, you can write
+\verb|\customref{INTRODUCTION section}{sec:intro}|
+to produce a hyperlink that appears as
+\customref{INTRODUCTION section}{sec:intro}.
+
+% ---------- Conclusion / Build ----------
+\section{Conclusion and Build}\label{sec:build}
+To build with automatic word counting:
+\begin{verbatim}
+    latexmk trb_template.tex -pdf -pvc -shell-escape
+\end{verbatim}
+The \verb|--shell-escape| flag lets \verb|texcount| run for accurate totals.
+
+Perl is required for \verb|texcount| (e.g., ActivePerl: \url{http://www.activestate.com/activeperl/downloads}).
+
+% ---------- Acknowledgments ----------
+\section{Acknowledgments}
+We thank Aleksandar Trifunovic (\url{https://github.com/akstrfn}) for putting together the initial \verb|trbunofficial| class that advanced this work.
+
+% ---------- Author Contributions ----------
+% Consider using the Contributor Role Taxonomy (CRediT) https://credit.niso.org/ when stating author contributions
+\section*{AUTHOR CONTRIBUTIONS}
+The authors confirm contribution to the paper as follows: 
+study conception and design: X.~Author, Y.~Author; 
+data collection: Y.~Author; 
+analysis and interpretation of results: X.~Author, Y.~Author, Z.~Author; 
+draft manuscript preparation: Y.~Author, Z.~Author. 
+All authors reviewed the results and approved the final version of the manuscript.
+
+% ---------- Declaration of COI ----------
+\section*{DECLARATION OF CONFLICTING INTERESTS}
+% Choose one of the following statements:
+X.~Author is a member of Transportation Research Record’s Editorial Board.  All other authors declare no potential conflicts of interest with respect to the research, authorship, and publication of this article.
+
+% % OR
+%The authors declared the following potential conflicts of interest with respect to the research, authorship, and/or publication of this article: \emph{[insert text here]}.
+
+% % OR
+% The authors declared no potential conflicts of interest with respect to the research, authorship, and/or publication of this article.
+
+\section*{FUNDING}
+% Choose one of the following statements:
+The authors disclosed receipt of the following financial support 
+for the research, authorship, and/or publication of this article: 
+This research was supported by \emph{[funding agency]} (grant no.~\emph{xxxxx}).
+
+% % OR
+% The authors disclosed no financial support for the research, authorship, and/or publication of this article.
+
+
+\newpage
+\bibliographystyle{trb}
+\bibliography{trb_template}
+\end{document}

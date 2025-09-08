@@ -84,6 +84,11 @@
 \titlespacing*{\subsubsection}{0pt}{12pt}{*0}
 
 % ----------------------------------------------------------------------
+% Referencing Sections
+% ----------------------------------------------------------------------
+\newcommand{\customref}[2]{\hyperref[#2]{#1}}
+
+% ----------------------------------------------------------------------
 % Equations (left-aligned; compact display skips)
 % ----------------------------------------------------------------------
 \setlength{\mathindent}{0in}
@@ -266,7 +271,6 @@
     \hfill\break%
     \hfill\break%
     \@author
-    \hfill\break%
     \hfill\break%
     \ifTRB@havecorr \textsuperscript{*}~Corresponding author\\ \fi
     \hfill\break%

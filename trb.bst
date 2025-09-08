@@ -75,6 +75,8 @@ ENTRY
     type
     volume
     year
+    url
+    urldate
   }
   {}
   { label extra.label sort.label short.list }
@@ -1268,6 +1270,7 @@ FUNCTION {chop.word}
     's
   if$
 }
+
 FUNCTION {format.lab.names}
 { 's :=
   "" 't :=
@@ -1289,6 +1292,35 @@ FUNCTION {format.lab.names}
         }
       if$
     }
+  if$
+}
+
+FUNCTION {online}
+{ output.bibitem
+  format.authors output        % print authors if any
+  format.title output          % safe even if empty
+  new.sentence
+  year empty$
+    { "????" output }
+    { year output }
+  if$
+  format.url output
+  format.urldate output
+  note output
+  fin.entry
+}
+
+FUNCTION {format.url}
+{ url empty$
+    { "" }
+    { new.block "Available at: \url{" url * "}" * }
+  if$
+}
+
+FUNCTION {format.urldate}
+{ urldate empty$
+    { "" }
+    { " (accessed " urldate * ")" * }
   if$
 }
 
@@ -1535,3 +1567,5 @@ EXECUTE {end.bib}
 %% End of customized bst file
 %%
 %% End of file `trb.bst'.
+
+%% TODO: fix url and urldate formatting in the references.
