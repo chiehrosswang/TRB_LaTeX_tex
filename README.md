@@ -29,9 +29,12 @@ Go to ``Options->Configure texstudio``. Click on ``Commands``. Add ``-shell-esca
 The file name of the primary TeX file (e.g., `trb_template.tex`) is automatically used for calculating total words.  If you changed the file name, you will not need to change the corresponding filename in the `trbunofficial.cls` file.  This is enabled by including the `[realmainfile]{currfile}` package and `\quickwordcount{\currfilebase}` command in the `trbunofficial.cls` file.
 
 
-### Texts counted toward total word count
-Note that the current version of this template count all words (e.g., title and authors) except the disclaimer/copyright notice on the title page.  It also counts texts in the references.  This should be consistent with the current TRB guideline available here: https://trb.secure-platform.com/a/page/TRBPaperReview.
+### Text counted toward total word count
+In this template, the total word count includes all text except (1) the footnote on the title page and (2) text inside tables. Each table is counted as 250 words regardless of its content; the text within tables does not add to the running total. This approach aligns with the current TRB guidelines: https://trb.secure-platform.com/a/page/TRBPaperReview
 
+
+### Submission date automated
+The template's `latexmkrc` file is required for the submission date on the title page to auto-populate correctly according to TRB's event clock: https://trb.secure-platform.com/a/page/TRBPaperReview/trbamfaq#due
 
 # Overleaf
 This template has been published on Overleaf, and it can be found here: https://www.overleaf.com/latex/templates/transportation-research-board-trb-latex-template/jkfndnnkkksw
