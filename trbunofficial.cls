@@ -47,6 +47,7 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{xurl}        % allow URL line breaks with hyperref
 \urlstyle{same}
+\RequirePackage{soul}
 
 % ----------------------------------------------------------------------
 % Class options
