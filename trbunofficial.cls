@@ -40,7 +40,7 @@
 \RequirePackage{textcomp}
 \RequirePackage[pagewise,mathlines]{lineno}
 \RequirePackage{geometry}
-\RequirePackage[sort&compress,numbers]{natbib}
+\RequirePackage[authoryear,round]{natbib}
 \RequirePackage{xparse}
 \RequirePackage{lastpage}
 \RequirePackage{etoolbox}    % utilities (author macros)
@@ -48,6 +48,8 @@
 \RequirePackage{xurl}        % allow URL line breaks with hyperref
 \urlstyle{same}
 \RequirePackage{soul}
+
+\bibpunct{(}{)}{;}{a}{~}{,}
 
 % ----------------------------------------------------------------------
 % Class options
@@ -115,15 +117,11 @@
 \captiondelim{\;}
 
 % ----------------------------------------------------------------------
-% Citations (author–number style in text)
+% Citations and references (author–date style)
 % ----------------------------------------------------------------------
-\renewcommand{\cite}[1]{(\textit{\citenum{#1}})}
-\renewcommand{\citep}[1]{\citeauthor{#1} (\textit{\citenum{#1}})}
-\setcitestyle{round}
-
-% References list spacing and labels (1. Author...; left-indented label)
+\AtBeginDocument{\let\cite\citep}
+\setlength{\bibhang}{0.5in}
 \setlength{\bibsep}{0pt plus 0.3ex}
-\renewcommand\@biblabel[1]{#1.\hspace{0.25in}}
 
 % Line numbering font
 \renewcommand\linenumberfont{\normalfont\small}
