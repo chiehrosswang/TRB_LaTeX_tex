@@ -67,7 +67,7 @@ In May 2026, \citet{wang} made several updates to reflect the modifications TRB 
 This template targets quick and TRB-compliant manuscript assembly \citep{trbwebsite}.
 
 \subsection{Title Page}
-The class provides a custom \verb|\maketitle| that prints authors (via \verb|\TRBauthor|), a word count (with tables counted as 250 words each by default), and the submission date. Word counting uses \verb|texcount| via shell escape; compile with \verb|--shell-escape| (see \customref{the BUILD section}{sec:build}).
+The class provides a custom \verb|\maketitle| that prints authors (via \verb|\TRBauthor|), a page count, and the submission date. 
 
 \subsection{Page Layout}
 Margins are 1~in. The running header shows authors (set with \verb|\AuthorHeaders|) at the left and the page number at the right. Headings and spacing follow TRB conventions.
@@ -148,7 +148,7 @@ to produce a hyperlink that appears as
 
 % ---------- Conclusion / Build ----------
 \section{Conclusion and Build}\label{sec:build}
-This is a placeholder for conclusions.  Use the following command to build with automatic page counting:
+This is a placeholder for conclusions.  To build with automatic page counting, use the following command:
 \begin{verbatim}
     latexmk trb_template.tex -pdf -pvc
 \end{verbatim}
