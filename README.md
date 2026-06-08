@@ -22,8 +22,8 @@ This works by including:
 The title page now includes an automated page count. Starting with the 2027 TRB Annual Meeting cycle, TRB replaced the 7,500-word limit with a 20-page limit for paper submissions.
 
 ## Automated submission date
-The included `latexmkrc` file ensures the submission date on the title page auto-populates according to TRB’s event clock: https://trb.secure-platform.com/a/page/TRBPaperReview/trbamfaq#due
+The included `latexmkrc` file ensures the submission date on the title page auto-populates according to TRB’s event clock: [https://trb.secure-platform.com/a/page/TRBPaperReview/trbamfaq#due](https://trb.secure-platform.com/a/page/TRBPaperReview/trbamfaq#due)
 
 # Overleaf
 
-This template is also available on Overleaf: https://www.overleaf.com/latex/templates/transportation-research-board-trb-latex-template/jkfndnnkkksw
+This template is also available on Overleaf: [https://www.overleaf.com/latex/templates/unofficial-transportation-research-board-trb-latex-template/jkfndnnkkksw](https://www.overleaf.com/latex/templates/unofficial-transportation-research-board-trb-latex-template/jkfndnnkkksw)
